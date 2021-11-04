@@ -1,0 +1,10 @@
+.bottom-nav-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+nav, footer {
+  background:#242632;
+  color: white;
+}
