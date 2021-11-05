@@ -61,6 +61,8 @@
                   // Write to firestore. We are using the UID for the ID in users collection.
                   name: user.displayName,
                   email: user.email,
+                  courses: [],
+                  events: []
                 })
                 .then(function () {
                   console.log("New user added to firestore");
