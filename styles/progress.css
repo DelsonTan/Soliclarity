@@ -5,7 +5,7 @@
   grid-template-rows: 1fr 10fr 1fr;
 }
 .content {
-  background-color: #605C73;
+  background-image: linear-gradient(to bottom right, rgb(100, 47, 47) , rgb(71, 59, 81), rgb(71, 59, 81));
   min-height: 100%;
 }
 .progress-grid {

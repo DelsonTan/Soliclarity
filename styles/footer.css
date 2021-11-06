@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: inherit;
+    text-decoration: none;
   }
   nav, footer {
     background:#242632;
