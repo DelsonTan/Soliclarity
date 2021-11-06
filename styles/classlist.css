@@ -29,7 +29,6 @@
   grid-row: 1 / 2;
   background-color: red;
   color: white;
-  /* margin: auto; */
 }
 html {
   height: 100%;
@@ -37,7 +36,7 @@ html {
 body {
   min-height: 100%;
   display: grid;
-  grid-template-rows: 15% 100% 15%;
+  grid-template-rows: 5% 80% 15%;
 }
 
 .gridNavbar {
