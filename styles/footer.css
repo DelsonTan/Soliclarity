@@ -9,4 +9,5 @@
   nav, footer {
     background:#242632;
     color: white;
+    height: fit-content;
   }
