@@ -159,6 +159,18 @@
       </div>
     </div>
   </div>
+ 
+
+  <template id="CardTemplate">
+      <div class="card py-2 mx-2" style="width: 18rem;">
+          <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-time">Some quick example text to build on the card title and make up the bulk of thecard's content.</p>
+              <p class="card-text">task goes here</p>
+              <a class="card-href" href="#" class="btn btn-primary">Get Details</a>
+          </div>
+      </div>
+  </template>
 
   <div>
     <h2 class = "category-text">
@@ -166,91 +178,53 @@
     </h2>
   </div>
 
-  <section class="cardgrid section1">
-    <div class="card">
-      <div class="verifiedred">
-        <h5 class="card-title">Comp 1712</h5>
-        <p class="card-text">3H 31M</p>
-        <p class="card-info">Lab 04</p>
+
+
+  <div class="container">
+    <!-- Here is container for cards  -->
+    <div class="container">
+      <div id="events-go-here" class="row row-cols-auto">
+
       </div>
     </div>
-    <div class="card">
-      <div class="verifiedyellow">
-        <h5 class="card-title">Comp 1113</h5>
-          <p class="card-text">4D 3H</p>
-          <p class="card-info">Assignment 2</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="verifiedgreen">
-        <h5 class="card-title">Comp 1712</h5>
-        <p class="card-text">6D 15H</p>
-        <p class="card-info">Lab 04</p>
-      </div>
-    </div>
-  </section>
+  </div>
+
 
   <div>
     <h2 class = "category-text">
       <a>Unverified</a>
     </h2>
   </div>
-  
-  <main class="cardgrid">
-    <div class="card">
-      <div class="unverifiedgrey">
-        <h5 class="card-title">Comp 1116</h5>
-        <p class="card-text">4H 31M</p>
-        <p class="card-info">Assignment 5</p>
+
+
+  <div class="container">
+    <!-- Here is container for cards  -->
+    <div class="container">
+      <div id="countries-go-here" class="row row-cols-auto">
+
       </div>
     </div>
-    <div class="card">
-      <div class="unverifiedgrey">
-        <h5 class="card-title">Comp 1510</h5>
-          <p class="card-text">5D 22H</p>
-          <p class="card-info">Quiz 04</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="unverifiedgrey">
-        <h5 class="card-title">Comp 1110</h5>
-        <p class="card-text">6D 1H</p>
-        <p class="card-info">Journal 5</p>
-      </div>
-    </div>
-  </main>
+  </div>
+
 
   <div>
     <h2 class = "category-text">
       <a>Completed</a>
     </h2>
   </div>
-  
-  <aside class="cardgrid">
-    <div class="card">
-      <div class="finishedred">
-        <h5 class="card-title">Comp 1116</h5>
-        <p class="card-text">4H 31M</p>
-        <p class="card-info">Assignment 5</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="finishedyellow">
-        <h5 class="card-title">Comp 1510</h5>
-          <p class="card-text">5D 22H</p>
-          <p class="card-info">Quiz 04</p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="finishedgreen">
-        <h5 class="card-title">Comp 1110</h5>
-        <p class="card-text">6D 1H</p>
-        <p class="card-info">Journal 5</p>
-      </div>
-    </div>
-  </aside>
 
+  <div class="container">
+    <!-- Here is container for cards  -->
+    <div class="container">
+      <div id="heros-go-here" class="row row-cols-auto">
+
+      </div>
+    </div>
+  </div>
   <br><br><br>
+
+
+
 
   <footer class="navbar justify-content-evenly">
     <a class="bottom-nav-button" href="index.html">
@@ -271,11 +245,11 @@
   <script>
     function writeEvents(){
       //define a variable for the collection you want to create in Firestore to populate data
-      let userTask = document.getElementById("taskField").value;
-      let userNotes = document.getElementById("notesField").value;
-      let userClass = document.getElementById("classField").value;
-      let userDueDate = document.getElementById("dueDateField").value;
-      let userDueHour = document.getElementById("dueHourField").value;
+      const userTask = document.getElementById("taskField").value;
+      const userNotes = document.getElementById("notesField").value;
+      const userClass = document.getElementById("classField").value;
+      const userDueDate = document.getElementById("dueDateField").value;
+      const userDueHour = document.getElementById("dueHourField").value;
 
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -289,6 +263,7 @@
                 class: userClass,
                 duedate: userDueDate,
                 duehour: userDueHour,
+                user: userID
               });
             })
         } else{
@@ -298,47 +273,40 @@
     }
 
     const btnAdd = document.querySelector(".btn-add");
-    //btnAdd.addEventListener("click", AddNew);
+    btnAdd.addEventListener("click", displayCards);
 
-    //function AddNew(){
-    btnAdd.addEventListener('click', (e) => {
-      const newDiv = document.createElement("div");
-      console.log("add div1");
-      newDiv.classList.add('card');
-      document.querySelector('.section1').appendChild(newDiv);
+    function displayCards(collection) {
+      let CardTemplate = document.getElementById("CardTemplate");
 
-      const newDiv2 = document.createElement("div");
-      console.log('add div2');
-      newDiv2.classList.add('verifiedgreen');
-      document.querySelector('.card').appendChild(newDiv2);
+      //db.collection(collection).get()    
+      db.collection("events").get() //get the events in firestore
+        .then(snap => {
+          var i = 1;
 
-      const newH5 = document.createElement("h5");
-      console.log('add h5');
-      newH5.classList.add('card-title');
-      document.querySelector('.verifiedgreen').appendChild(h5);
+          snap.forEach(doc => {    
+            var title = doc.data().class;
+            var details = doc.data().duedate;
+            var tasks = doc.data().task;
+            let newcard = CardTemplate.content.cloneNode(true); //clones template, points to card
 
-      db.collection('events').doc(user.uid).onSnapshot(userClass=>{
-        document.getElementById('card-title').innerHTML = userClass.data();
-      })
+            //update title and text and image
+            newcard.querySelector('.card-title').innerHTML = title;
+            newcard.querySelector('.card-time').innerHTML = details;
+            newcard.querySelector('.card-text').innerHTML = tasks;
 
-      const newP = document.createElement("p");
-      console.log('add p1');
-      newP.classList.add('card-text');
-      document.querySelector('.verifiedgreen').appendChild(newDiv2);
+            //give unique ids to all elements for future use
+            newcard.querySelector('.card-title').setAttribute("id", "ctitle" + i);    //how i can add a new id, custom to each line//an attribute
+            newcard.querySelector('.card-time').setAttribute("id", "ctime" + i);
+            newcard.querySelector('.card-text').setAttribute("id", "ctext" + i);
 
-      db.collection('events').doc(user.uid).onSnapshot(duedate=>{
-        document.getElementById('card-text').innerHTML = duedate.data();
-      })
+            //attach to gallery "events-go-here"
+            document.getElementById(collection + "-go-here").appendChild(newcard);  //where the new card gets attached
+          })
+        })
+    }
+  
+    displayCards("events");
 
-      const newP2 = document.createElement("p");
-      console.log('add p2');
-      newP2.classList.add('card-info');
-      document.querySelector('.verifiedgreen').appendChild(newDiv2);
-
-      db.collection('events').doc(user.uid).onSnapshot(task=>{
-        document.getElementById('card-info').innerHTML = task.data();
-      })
-    });
       
   </script>
   
