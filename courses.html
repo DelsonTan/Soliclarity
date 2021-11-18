@@ -95,7 +95,7 @@
             <input type="text" id="new-course-location" class="form-control" placeholder="Enter location">
 
             <label>Zoom Link</label>
-            <input type="text" id="new-zoom-link" class="form-control" placeholder="Enter location">
+            <input type="text" id="new-course-zoom-link" class="form-control" placeholder="Enter location">
             
 
 
@@ -138,6 +138,7 @@
       const location = document.getElementById("new-course-location").value;
       const startTime = document.getElementById("new-course-start-time").value;
       const endtime = document.getElementById("new-course-end-time").value;
+      const zoomlink = document.getElementById("new-course-zoom-link").value
 
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -150,6 +151,7 @@
               location,
               startTime,
               endtime,
+              zoomlink,
               users: [user.uid]
             });
           })
@@ -172,6 +174,7 @@
             const endTime = doc.data().endTime;
             const location = doc.data().location;
             const startTime = doc.data().startTime;
+            const zoomlink = doc.data().zoomlink;
 
             let newCourse = template.content.cloneNode(true);
 
