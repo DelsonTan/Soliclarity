@@ -224,7 +224,7 @@
       <i class="material-icons">home</i>
       <span>Home</span>
     </a>
-    <a class="bottom-nav-button" href="classlist.html">
+    <a class="bottom-nav-button" href="courses.html">
       <i class="material-icons">class</i>
       <span>Courses</span>
     </a>
@@ -282,7 +282,7 @@
             let newcard = CardTemplate.content.cloneNode(true); //clones template, points to card
             
             newcard.querySelector('.card-body').setAttribute("id", doc.id);
-            
+
             //update title and text and image
             newcard.querySelector('.card-title').innerHTML = title;
             newcard.querySelector('.card-time').innerHTML = details;
