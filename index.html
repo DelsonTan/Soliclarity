@@ -283,6 +283,11 @@
             
             newcard.querySelector('.card-body').setAttribute("id", doc.id);
             
+            //update title and text and image
+            newcard.querySelector('.card-title').innerHTML = title;
+            newcard.querySelector('.card-time').innerHTML = details;
+            newcard.querySelector('.card-text').innerHTML = tasks;
+
             //attach to gallery "events-go-here"
             document.getElementById("events-go-here").appendChild(newcard);  //where the new card gets attached
           })
