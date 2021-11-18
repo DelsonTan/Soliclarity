@@ -68,13 +68,13 @@
         <form>
           <fieldset class="mb-3" id="personalInfoFields">
             <div class="form-group">
-              <label>Task Title</label>
-              <input type="text" class="form-control" id="taskField" placeholder="Task">
+              <label>Title</label>
+              <input type="text" class="form-control" id="nameField" placeholder="i.e. &quot;Assignment 1&quot;">
             </div><br>
              
             <div class="form-group">
               <label>Select Class</label>
-              <select class="form-control" id="classField">
+              <select class="form-control" id="courseField">
                 <option>COMP 1110</option>
                 <option>COMM 1116</option>
                 <option>COMP 1510</option>
@@ -153,7 +153,7 @@
           </fieldset>
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn-add" onclick="writeEvents()" data-bs-dismiss="modal">Add</button>
+            <button type="button" class="btn-add" onclick="addEvent()" data-bs-dismiss="modal">Add</button>
           </div>
         </form>
       </div>
@@ -175,7 +175,7 @@
   <div>
     <h2 class = "category-text">
       <a>Assigned</a>
-    </h2>
+    </h2> 
   </div>
 
 
@@ -231,25 +231,21 @@
       <i class="material-icons">home</i>
       <span>Home</span>
     </a>
-    <a class="bottom-nav-button" href="classlist.html">
+    <a class="bottom-nav-button" href="courses.html">
       <i class="material-icons">class</i>
       <span>Courses</span>
-    </a>
-    <a class="bottom-nav-button" href="progress.html">
-      <i class="material-icons">assessment</i>
-      <span>Progress</span>
     </a>
   </footer>
   
   
   <script>
-    function writeEvents(){
+    function addEvent() {
       //define a variable for the collection you want to create in Firestore to populate data
-      const userTask = document.getElementById("taskField").value;
-      const userNotes = document.getElementById("notesField").value;
-      const userClass = document.getElementById("classField").value;
-      const userDueDate = document.getElementById("dueDateField").value;
-      const userDueHour = document.getElementById("dueHourField").value;
+      const name = document.getElementById("nameField").value;
+      const notes = document.getElementById("notesField").value;
+      const course = document.getElementById("courseField").value;
+      const due_date = document.getElementById("dueDateField").value;
+      const due_hour = document.getElementById("dueHourField").value;
 
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
@@ -258,27 +254,28 @@
           currentUser.get()
             .then(userDoc => {
               db.collection("events").add({
-                task: userTask,     
-                notes: userNotes,
-                class: userClass,
-                duedate: userDueDate,
-                duehour: userDueHour,
-                user: userID
+                name,     
+                notes,
+                course,
+                due_date,
+                due_hour,
+                users: [userID]
               });
             })
         } else{
           console.log("no user signed in");
         }
       });
+      
     }
 
     const btnAdd = document.querySelector(".btn-add");
-    btnAdd.addEventListener("click", displayCards);
+    btnAdd.addEventListener("click", displayEvents);
 
-    function displayCards(collection) {
+    function displayEvents() {
       let CardTemplate = document.getElementById("CardTemplate");
 
-      //db.collection(collection).get()    
+      //db.collection(collection).get()    //.where()!!!!!
       db.collection("events").get() //get the events in firestore
         .then(snap => {
 
@@ -287,19 +284,21 @@
             var details = doc.data().duedate;
             var tasks = doc.data().task;
             let newcard = CardTemplate.content.cloneNode(true); //clones template, points to card
+            
+            newcard.querySelector('.card-body').setAttribute("id", doc.id);
 
             //update title and text and image
             newcard.querySelector('.card-title').innerHTML = title;
             newcard.querySelector('.card-time').innerHTML = details;
             newcard.querySelector('.card-text').innerHTML = tasks;
-           
+
             //attach to gallery "events-go-here"
             document.getElementById("events-go-here").appendChild(newcard);  //where the new card gets attached
           })
         })
     }
   
-    displayCards("events");
+    displayEvents();
 
       
   </script>
