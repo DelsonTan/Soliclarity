@@ -268,7 +268,7 @@
     const btnAdd = document.querySelector(".btn-add");
     btnAdd.addEventListener("click", displayCards);
 
-    function displayCards(collection) {
+    function displayCards() {
       let CardTemplate = document.getElementById("CardTemplate");
 
       //db.collection(collection).get()    
@@ -283,19 +283,13 @@
             
             newcard.querySelector('.card-body').setAttribute("id", doc.id);
             
-            //update title and text and image
-            newcard.querySelector('.card-title').innerHTML = title;
-            newcard.querySelector('.card-time').innerHTML = details;
-            newcard.querySelector('.card-text').innerHTML = tasks;
-           
-
             //attach to gallery "events-go-here"
-            document.getElementById(collection + "-go-here").appendChild(newcard);  //where the new card gets attached
+            document.getElementById("events-go-here").appendChild(newcard);  //where the new card gets attached
           })
         })
     }
   
-    displayCards("events");
+    displayCards();
 
       
   </script>
