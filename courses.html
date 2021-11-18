@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <!-- Mobile Viewport Setting (remove horizontal scaling) -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+
+    <!-- Stylesheet Import -->
+    <!-- <link rel="stylesheet" href="path-to-css-stylesheet.css" /> -->
+    <link rel="stylesheet" href="./styles/classlist.css" />
+    <link rel="stylesheet" href="./styles/footer.css" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <!-- Google Icons (Material Design)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Aclass%3A" rel="stylesheet" />
+
+    <!--Firebase 8 CDNS-->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="/scripts/firebaseAPI.js"></script>
+    <title>Soliclarity</title>
+  </head>
+
+  <body>
+    <template id="course-item">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="course -title"></h5>
+          <button class="btn">
+            <div class="classroomMenu">
+              <i class="material-icons">expand more</i>
+            </div>
+          </button>
+        </div>
+      </div>
+    </template>
+
+
+    <div class="gridNavbar">
+      <h1 class="navbar-text">
+        <a>Soliclarity</a>
+      </div>
+
+
+      <div class="course-list"></div>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="classInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+
+
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <div class="join">
+        <button type="button" class="btn btn-primary">Join</button>
+      </div>
+
+      <div class="create">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Create
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create a class</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+
+
+
+                <div class="form-group">
+
+                  <label>Course Name</label>
+                  <input type="text" id="courseInput" class="form-control" placeholder="Enter course name">
+
+                    <label>Code</label>
+                    <input type="text" id="codeInput" class="form-control" placeholder="Enter course code">
+
+                      <label>Location</label>
+                      <input type="text" id="locationInput" class="form-control" placeholder="Enter location">
+
+                        <label>Course Time</label>
+                        <form action="/action_page.php" id="startInput">
+                          <label for="appt">Start:</label>
+                          <input type="time" id="appt" name="appt">
+                            <input type="submit">
+                            </form>
+                            <form action="/action_page.php" id = "endInput">
+                              <label for="appt">End:</label>
+                              <input type="time" id="appt" name="appt">
+                                <input type="submit">
+                                </form>
+
+
+                              </div>
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary" onclick="createCourse()">Confirm</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+
+
+                  <footer class="navbar justify-content-evenly">
+                    <a class="bottom-nav-button" href="index.html">
+                      <i class="material-icons">home</i>
+                      <span>Home</span>
+                    </a>
+                    <a class="bottom-nav-button" href="classlist.html">
+                      <i class="material-icons">class</i>
+                      <span>Courses</span>
+                    </a>
+                    <a class="bottom-nav-button" href="progress.html">
+                      <i class="material-icons">assessment</i>
+                      <span>Progress</span>
+                    </a>
+                  </footer>
+                </div>
+
+                <!-- Javascript Import (MUST BE AT END OF FILE!) -->
+                <!-- <script type="text/javascript" src="path-to-javascript-file.js"></script> -->
+
+
+
+                <script>
+ 
+ 
+    function createCourse(){
+      //define a variable for the collection you want to create in Firestore to populate data
+      let userCourse = document.getElementById("courseInput").value;
+      let userCode = document.getElementById("codeInput").value;
+      let userLocation = document.getElementById("locationInput").value;
+      let userStartTime = document.getElementById("inputStart").value;
+      let userEndTime = document.getElementById("inputEnd").value;
+ 
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          var currentUser = db.collection("users").doc(user.uid)
+          var userID = user.uid;
+          currentUser.get()
+            .then(doc => {
+              db.collection("courses").add({
+                course: userCourse,    
+                code: userCode,
+                location: userLocation,
+                startTime: userStartTime,
+                endTime: userEndTime,
+              });
+            })
+        } else{
+          console.log("no user signed in");
+        }
+      });
+    }
+ 
+
+
+
+    db.collection("courses").get() //get the events in firestore
+        .then(snap => {
+          var i = 1;
+
+          snap.forEach(doc => {    
+            var courseTitle = doc.data().course;
+            var code = doc.data().code;
+            var endTime = doc.data().endTime;
+            var location = doc.data().location;
+            var startTime = doc.data().startTime;
+            let newcard = CardTemplate.content.cloneNode(true); //clones template, points to card
+
+            //update title and text and image
+            newcard.querySelector('.card-course').innerHTML = courseTitle;
+            newcard.querySelector('.card-details').innerHTML = details;
+            newcard.querySelector('.card-text').innerHTML = tasks;
+
+           
+
+            //attach to gallery "events-go-here"
+            document.getElementById(collection + "-go-here").appendChild(newcard);  //where the new card gets attached
+          })
+        })
+    
+  
+    displayCards("events");
+
+ 
+ 
+ 
+ 
+                </script>
+
+
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+              </body>
+            </html>
+ 
+
