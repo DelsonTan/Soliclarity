@@ -85,30 +85,28 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Course Name</label>
-            <input type="text" id="courseInput" class="form-control" placeholder="Enter course name">
+            <input type="text" id="new-course-name" class="form-control" placeholder="Enter course name">
 
             <label>Code</label>
-            <input type="text" id="codeInput" class="form-control" placeholder="Enter course code">
+            <input type="text" id="new-course-code" class="form-control" value="999" disabled>
 
             <label>Location</label>
-            <input type="text" id="locationInput" class="form-control" placeholder="Enter location">
+            <input type="text" id="new-course-location" class="form-control" placeholder="Enter location">
 
             <label>Course Time</label>
-            <form action="/action_page.php" id="startInput">
+            <form action="/action_page.php">
               <label for="appt">Start:</label>
-              <input type="time" id="appt" name="appt">
-              <input type="submit">
+              <input type="time" id="new-course-start-time" name="appt">
             </form>
-            <form action="/action_page.php" id="endInput">
+            <form action="/action_page.php">
               <label for="appt">End:</label>
-              <input type="time" id="appt" name="appt">
-              <input type="submit">
+              <input type="time" id="new-course-end-time" name="appt">
             </form>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="createCourse()">Confirm</button>
+          <button type="button" class="btn btn-primary" onclick="createCourse()" data-bs-dismiss="modal">Confirm</button>
         </div>
       </div>
     </div>
@@ -128,23 +126,24 @@
   <script>
     function createCourse() {
       //define a variable for the collection you want to create in Firestore to populate data
-      let userCourse = document.getElementById("courseInput").value;
-      let userCode = document.getElementById("codeInput").value;
-      let userLocation = document.getElementById("locationInput").value;
-      let userStartTime = document.getElementById("inputStart").value;
-      let userEndTime = document.getElementById("inputEnd").value;
+      const name = document.getElementById("new-course-name").value;
+      const code = document.getElementById("new-course-code").value;
+      const location = document.getElementById("new-course-location").value;
+      const startTime = document.getElementById("new-course-start-time").value;
+      const endtime = document.getElementById("new-course-end-time").value;
 
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          var currentUser = db.collection("users").doc(user.uid)
-          var userID = user.uid;
+          const currentUser = db.collection("users").doc(user.uid)
+
           currentUser.get().then(doc => {
             db.collection("courses").add({
-              course: userCourse,
-              code: userCode,
-              location: userLocation,
-              startTime: userStartTime,
-              endTime: userEndTime,
+              name,
+              code,
+              location,
+              startTime,
+              endtime,
+              users: [user.uid]
             });
           })
         } else {
