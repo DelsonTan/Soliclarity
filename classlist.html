@@ -31,14 +31,20 @@
  
       
       <div class="gridContent">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">TEMPLATE TEXT</h5>
-            <button class="btn">
-              <div class="classroomMenu"><i class="material-icons"  data-bs-toggle="modal" data-bs-target="#classInfo" >menu</i></div>
-            </button>
+
+        
+        <template id="CardTemplate">
+          
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">COMP 1110</h5>
+              <button class="btn">
+                <div class="classroomMenu"><i class="material-icons">menu</i></div>
+              </button>
+            </div>
           </div>
-        </div>
+
+      </template>
 
 
 
@@ -181,8 +187,8 @@
                 course: userCourse,    
                 code: userCode,
                 location: userLocation,
-                start: userStartTime,
-                end: userEndTime,
+                startTime: userStartTime,
+                endTime: userEndTime,
               });
             })
         } else{
@@ -191,6 +197,36 @@
       });
     }
  
+
+
+
+    db.collection("courses").get() //get the events in firestore
+        .then(snap => {
+          var i = 1;
+
+          snap.forEach(doc => {    
+            var courseTitle = doc.data().course;
+            var code = doc.data().code;
+            var endTime = doc.data().endTime;
+            var location = doc.data().location;
+            var startTime = doc.data().startTime;
+            let newcard = CardTemplate.content.cloneNode(true); //clones template, points to card
+
+            //update title and text and image
+            newcard.querySelector('.card-course').innerHTML = courseTitle;
+            newcard.querySelector('.card-details').innerHTML = details;
+            newcard.querySelector('.card-text').innerHTML = tasks;
+
+           
+
+            //attach to gallery "events-go-here"
+            document.getElementById(collection + "-go-here").appendChild(newcard);  //where the new card gets attached
+          })
+        })
+    
+  
+    displayCards("events");
+
  
  
  
