@@ -40,8 +40,8 @@
   </template>
 
   <div class="gridNavbar">
-    <h1 class="navbar-text">
-      <a>Soliclarity</a>
+    <h1 class="navbar-text"></h1>
+    <a>Soliclarity</a>
   </div>
 
   <div id="course-list"></div>
@@ -96,7 +96,7 @@
 
             <label>Zoom Link</label>
             <input type="text" id="new-zoom-link" class="form-control" placeholder="Enter location">
-            
+
 
 
             <label>Course Time</label>
@@ -143,8 +143,8 @@
         if (user) {
           const currentUser = db.collection("users").doc(user.uid)
 
-          currentUser.get().then(doc => {
-            db.collection("courses").add({
+          currentUser.get().then(async () => {
+            await db.collection("courses").add({
               name,
               code,
               location,
@@ -152,6 +152,7 @@
               endtime,
               users: [user.uid]
             });
+            displayCourses();
           })
         } else {
           console.log("no user signed in");
@@ -160,6 +161,8 @@
     }
 
     function displayCourses() {
+      document.getElementById("course-list").innerHTML = "";
+
       const template = document.getElementById("course-row");
 
       db.collection("courses")

@@ -252,7 +252,7 @@
           var currentUser = db.collection("users").doc(user.uid)
           var userID = user.uid;
           currentUser.get()
-            .then(async (userDoc) => {
+            .then(async () => {
               await db.collection("events").add({
                 name,     
                 notes,
