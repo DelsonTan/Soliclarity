@@ -167,7 +167,7 @@
               <h5 class="card-title">Card title</h5>
               <p class="card-time">Some quick example text to build on the card title and make up the bulk of thecard's content.</p>
               <p class="card-text">task goes here</p>
-              <a class="card-href" href="#" class="btn btn-primary">Get Details</a>
+              <a class="card-href btn btn-primary" href="#">Get Details</a>
           </div>
       </div>
   </template>
@@ -252,33 +252,33 @@
           var currentUser = db.collection("users").doc(user.uid)
           var userID = user.uid;
           currentUser.get()
-            .then(userDoc => {
-              db.collection("events").add({
+            .then(async (userDoc) => {
+              await db.collection("events").add({
                 name,     
                 notes,
                 course,
                 due_date,
                 due_hour,
                 users: [userID]
-              });
+              })
+              displayEvents();
             })
         } else{
           console.log("no user signed in");
         }
       });
-      
     }
 
     const btnAdd = document.querySelector(".btn-add");
-    //btnAdd.addEventListener("click", displayEvents);
 
     function displayEvents() {
+      // reset by emptying the parent div
+      document.getElementById("events-go-here").innerHTML="";
+
       let CardTemplate = document.getElementById("CardTemplate");
 
-      //db.collection(collection).get()    //.where()!!!!!
       db.collection("events").get() //get the events in firestore
         .then(snap => {
-          // document.getElementById("events-go-here").innerHTML="";
           snap.forEach(doc => {    
             var course = doc.data().course;
             var details = doc.data().due_date;
