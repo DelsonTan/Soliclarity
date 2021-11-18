@@ -270,7 +270,7 @@
     }
 
     const btnAdd = document.querySelector(".btn-add");
-    btnAdd.addEventListener("click", displayEvents);
+    //btnAdd.addEventListener("click", displayEvents);
 
     function displayEvents() {
       let CardTemplate = document.getElementById("CardTemplate");
@@ -278,19 +278,19 @@
       //db.collection(collection).get()    //.where()!!!!!
       db.collection("events").get() //get the events in firestore
         .then(snap => {
-
+          // document.getElementById("events-go-here").innerHTML="";
           snap.forEach(doc => {    
-            var title = doc.data().class;
-            var details = doc.data().duedate;
-            var tasks = doc.data().task;
+            var course = doc.data().course;
+            var details = doc.data().due_date;
+            var name = doc.data().name;
             let newcard = CardTemplate.content.cloneNode(true); //clones template, points to card
             
             newcard.querySelector('.card-body').setAttribute("id", doc.id);
 
             //update title and text and image
-            newcard.querySelector('.card-title').innerHTML = title;
+            newcard.querySelector('.card-title').innerHTML = course;
             newcard.querySelector('.card-time').innerHTML = details;
-            newcard.querySelector('.card-text').innerHTML = tasks;
+            newcard.querySelector('.card-text').innerHTML = name;
 
             //attach to gallery "events-go-here"
             document.getElementById("events-go-here").appendChild(newcard);  //where the new card gets attached
