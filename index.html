@@ -281,7 +281,6 @@
       //db.collection(collection).get()    
       db.collection("events").get() //get the events in firestore
         .then(snap => {
-          var i = 1;
 
           snap.forEach(doc => {    
             var title = doc.data().class;
@@ -293,12 +292,7 @@
             newcard.querySelector('.card-title').innerHTML = title;
             newcard.querySelector('.card-time').innerHTML = details;
             newcard.querySelector('.card-text').innerHTML = tasks;
-
-            //give unique ids to all elements for future use
-            newcard.querySelector('.card-title').setAttribute("id", "ctitle" + i);    //how i can add a new id, custom to each line//an attribute
-            newcard.querySelector('.card-time').setAttribute("id", "ctime" + i);
-            newcard.querySelector('.card-text').setAttribute("id", "ctext" + i);
-
+           
             //attach to gallery "events-go-here"
             document.getElementById(collection + "-go-here").appendChild(newcard);  //where the new card gets attached
           })
