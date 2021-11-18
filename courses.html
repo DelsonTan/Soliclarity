@@ -28,7 +28,7 @@
 </head>
 
 <body>
-  <template id="course-item">
+  <template id="course-row">
     <div class="course-item">
       <h5 class="course-title"></h5>
       <button class="btn">
@@ -44,7 +44,7 @@
       <a>Soliclarity</a>
   </div>
 
-  <div class="course-list"></div>
+  <div id="course-list"></div>
 
   <!-- Modal -->
   <div class="modal fade" id="classInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -154,7 +154,7 @@
     }
 
     function displayCourses() {
-      const template = document.getElementById("course-item");
+      const template = document.getElementById("course-row");
 
       db.collection("courses")
         .get()
@@ -167,20 +167,11 @@
             const location = doc.data().location;
             const startTime = doc.data().startTime;
 
-            const newCourse = template.content.cloneNode(true);
+            let newCourse = template.content.cloneNode(true);
 
-            newCourse.querySelector("course-item").setAttribute("id", doc.id);
-            newCourse.querySelector('.course-title').innerHTML = title;
+            newCourse.querySelector(".course-item").setAttribute("id", doc.id);
+            newCourse.querySelector('.course-title').innerHTML = courseTitle;
 
-            // //update title and text and image
-            // newCourse.querySelector('.card-course').innerHTML = courseTitle;
-            // newCourse.querySelector('.card-details').innerHTML = details;
-            // newCourse.querySelector('.card-text').innerHTML = tasks;
-
-            newCourse.querySelector('.course-title').innerHTML = title;
-
-
-            // //attach to gallery "events-go-here"
             document.getElementById("course-list").appendChild(newCourse);  //where the new card gets attached
           })
         })
