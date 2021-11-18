@@ -167,7 +167,7 @@
         .then((courses) => {
           courses.forEach(doc => {
             console.log(doc.data());
-            const courseTitle = doc.data().course;
+            const courseTitle = doc.data().name;
             const code = doc.data().code;
             const endTime = doc.data().endTime;
             const location = doc.data().location;
