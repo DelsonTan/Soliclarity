@@ -62,7 +62,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add Event</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Add a Task</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form>
@@ -73,8 +73,8 @@
             </div><br>
              
             <div class="form-group">
-              <label>Select Course</label>
-              <select class="form-control" id="classField">
+              <label>Select Class</label>
+              <select class="form-control" id="courseField">
                 <option>COMP 1110</option>
                 <option>COMM 1116</option>
                 <option>COMP 1510</option>
@@ -112,6 +112,7 @@
                 <option>10:30 PM</option>
                 <option>11:00 PM</option>
                 <option>11:30 PM</option>
+                <option>11:59 PM (due before end of day)</option>
                 <option>12:00 AM</option>
                 <option>12:30 AM</option>
                 <option>1:00 AM</option>
@@ -136,12 +137,18 @@
                 <option>10:30 AM</option>
                 <option>11:00 AM</option>
                 <option>11:30 AM</option>
+                <option>11:59 AM</option>
               </select>
+              <!--
+              <select class="form-control" id="amPMField">
+                <option>AM</option>
+                <option>PM</option>
+              </select>-->
             </div>
             <br><br>
             <div class="form-group">
               <label>Notes</label>
-              <input type="text" class="form-control" id="notesField" placeholder="i.e. &quot;Covers chapter 1 and 2 of the textbook.&quot;">
+              <input type="text" class="form-control" id="notesField" placeholder="Add Notes">
             </div><br>
           </fieldset>
           <div class="d-flex justify-content-end">
@@ -160,7 +167,7 @@
               <h5 class="card-title">Card title</h5>
               <p class="card-time">Some quick example text to build on the card title and make up the bulk of thecard's content.</p>
               <p class="card-text">task goes here</p>
-              <a class="card-href" href="#" class="btn btn-primary">Get Details</a>
+              <a class="card-href btn btn-primary" href="#">Get Details</a>
           </div>
       </div>
   </template>
@@ -236,7 +243,7 @@
       //define a variable for the collection you want to create in Firestore to populate data
       const name = document.getElementById("nameField").value;
       const notes = document.getElementById("notesField").value;
-      const course = document.getElementById("classField").value;
+      const course = document.getElementById("courseField").value;
       const due_date = document.getElementById("dueDateField").value;
       const due_hour = document.getElementById("dueHourField").value;
 
@@ -245,15 +252,16 @@
           var currentUser = db.collection("users").doc(user.uid)
           var userID = user.uid;
           currentUser.get()
-            .then(userDoc => {
-              db.collection("events").add({
+            .then(async (userDoc) => {
+              await db.collection("events").add({
                 name,     
                 notes,
                 course,
                 due_date,
                 due_hour,
                 users: [userID]
-              });
+              })
+              displayEvents();
             })
         } else{
           console.log("no user signed in");
@@ -262,27 +270,27 @@
     }
 
     const btnAdd = document.querySelector(".btn-add");
-    btnAdd.addEventListener("click", displayEvents);
 
     function displayEvents() {
+      // reset by emptying the parent div
+      document.getElementById("events-go-here").innerHTML="";
+
       let CardTemplate = document.getElementById("CardTemplate");
 
-      //db.collection(collection).get()    
       db.collection("events").get() //get the events in firestore
         .then(snap => {
-
           snap.forEach(doc => {    
-            var title = doc.data().class;
-            var details = doc.data().duedate;
-            var tasks = doc.data().task;
+            var course = doc.data().course;
+            var details = doc.data().due_date;
+            var name = doc.data().name;
             let newcard = CardTemplate.content.cloneNode(true); //clones template, points to card
             
             newcard.querySelector('.card-body').setAttribute("id", doc.id);
 
             //update title and text and image
-            newcard.querySelector('.card-title').innerHTML = title;
+            newcard.querySelector('.card-title').innerHTML = course;
             newcard.querySelector('.card-time').innerHTML = details;
-            newcard.querySelector('.card-text').innerHTML = tasks;
+            newcard.querySelector('.card-text').innerHTML = name;
 
             //attach to gallery "events-go-here"
             document.getElementById("events-go-here").appendChild(newcard);  //where the new card gets attached
