@@ -5,6 +5,7 @@ function createCourse() {
   const location = document.getElementById("new-course-location").value;
   const startTime = document.getElementById("new-course-start-time").value;
   const endtime = document.getElementById("new-course-end-time").value;
+  const zoomlink = document.getElementById("new-course-zoom-link").value;
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -42,6 +43,7 @@ function displayCourses() {
         const endTime = doc.data().endTime;
         const location = doc.data().location;
         const startTime = doc.data().startTime;
+        const zoomlink = doc.data().zoomlink;
 
         let newCourse = template.content.cloneNode(true);
 
@@ -54,3 +56,41 @@ function displayCourses() {
 }
 
 displayCourses();
+
+function populateInfo() {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      currentUser = db.collection("users").doc(user.uid);
+      currentUser.get().then((userDoc) => {
+        if (name != null) {
+          document.getElementById("new-course-name").value = name;
+        }
+        if (code != null) {
+          document.getElementById("new-course-code").value = code;
+        }
+        if (location != null) {
+          document.getElementById("new-course-location").value = location;
+        }
+        if (startTime != null) {
+          document.getElementById("new-course-start-time").value = startTime;
+        }
+        if (endTime != null) {
+          document.getElementById("new-course-end-time").value = endTime;
+        }
+        if (zoomlink != null) {
+          document.getElementById("new-course-zoom-link").value = zoomlink;
+        }
+      });
+    } else {
+      // No user is signed in.
+      console.log("No user is signed in");
+    }
+
+    const titleName = document.querySelector("#exampleModalLabel");
+  });
+}
+
+function editCourseInfo() {
+  //Enable the form fields
+  document.getElementById("personalInfoFields").disabled = false;
+}

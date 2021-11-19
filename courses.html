@@ -31,6 +31,11 @@
   <template id="course-row">
     <div class="course-item">
       <h5 class="course-title"></h5>
+
+      <button type="button" class="btn btn-primary" onclick="populateInfo()" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">Test Description</button>
+
+      <div class="course-menu"></div>
     </div>
   </template>
 
@@ -39,25 +44,6 @@
   </header>
 
   <div id="course-list"></div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="classInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="join">
     <button type="button" class="btn btn-primary">Join</button>
@@ -78,31 +64,33 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="form-group">
-            <label>Course Name</label>
-            <input type="text" id="new-course-name" class="form-control" placeholder="Enter course name">
+          <fieldset class="mb-3" id="personalInfoFields">
+            <div class="form-group">
+              <label>Course Name</label>
+              <input type="text" id="new-course-name" class="form-control" placeholder="Enter course name">
 
-            <label>Code</label>
-            <input type="text" id="new-course-code" class="form-control" value="999" disabled>
+              <label>Code</label>
+              <input type="text" id="new-course-code" class="form-control" value="999" disabled>
 
-            <label>Location</label>
-            <input type="text" id="new-course-location" class="form-control" placeholder="Enter location">
+              <label>Location</label>
+              <input type="text" id="new-course-location" class="form-control" placeholder="Enter location">
 
-            <label>Zoom Link</label>
-            <input type="text" id="new-zoom-link" class="form-control" placeholder="Enter location">
+              <label>Zoom Link</label>
+              <input type="text" id="new-course-zoom-link" class="form-control" placeholder="Enter location">
 
 
 
-            <label>Course Time</label>
-            <form action="/action_page.php">
-              <label for="appt">Start:</label>
-              <input type="time" id="new-course-start-time" name="appt">
-            </form>
-            <form action="/action_page.php">
-              <label for="appt">End:</label>
-              <input type="time" id="new-course-end-time" name="appt">
-            </form>
-          </div>
+              <label>Course Time</label>
+              <form action="/action_page.php">
+                <label for="appt">Start:</label>
+                <input type="time" id="new-course-start-time" name="appt">
+              </form>
+              <form action="/action_page.php">
+                <label for="appt">End:</label>
+                <input type="time" id="new-course-end-time" name="appt">
+              </form>
+            </div>
+          </fieldset>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
