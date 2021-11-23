@@ -27,14 +27,17 @@ function createCourse() {
     if (user) {
       const currentUser = db.collection("users").doc(user.uid);
 
-      currentUser.get().then(async () => {
-        await db.collection("courses").add({
+      currentUser.get().then(async (userDoc) => {
+        const courseRef = await db.collection("courses").add({
           name,
           code,
           location,
           startTime,
           endtime,
           users: [user.uid],
+        });
+        await currentUser.set({
+          courses: [...userDoc.data().courses, courseRef.id],
         });
         displayCourses();
       });
@@ -55,7 +58,6 @@ function displayCourses() {
         .get()
         .then((courses) => {
           courses.forEach((doc) => {
-            console.log(doc.data());
             const courseTitle = doc.data().name;
             const code = doc.data().code;
             const endTime = doc.data().endTime;
