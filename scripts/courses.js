@@ -22,15 +22,16 @@ function joinCourse() {
       const currentUser = db.collection("users").doc(user.uid);
 
       const userDoc = await currentUser.get();
-      const querySnapshot = await db
+
+      // search courses whose code matches input
+      const searchResults = await db
         .collection("courses")
         .where("code", "==", code)
         .get();
 
-      if (!querySnapshot.empty) {
-        const course = querySnapshot.docs[0];
-
-        const currentCourse = db.collection("courses").doc(course.id);
+      if (!searchResults.empty) {
+        // assume only one course has matching code and take the first search result
+        const currentCourse = db.collection("courses").doc(searchResults.docs[0].id);
 
         const courseDoc = await currentCourse.get();
 
@@ -41,7 +42,7 @@ function joinCourse() {
         await currentUser.update({
           courses: [...userDoc.data().courses, courseDoc.id],
         });
-        
+
         displayCourses();
       } else {
         console.error("No course found for the given course code.");
