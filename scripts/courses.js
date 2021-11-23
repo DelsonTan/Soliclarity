@@ -17,35 +17,35 @@ $(document).on("click", "#open-create-course", function () {
 function joinCourse() {
   const code = document.getElementById("join-course-code").value;
 
-  firebase.auth().onAuthStateChanged((user) => {
+  firebase.auth().onAuthStateChanged(async (user) => {
     if (user) {
       const currentUser = db.collection("users").doc(user.uid);
 
-      currentUser.get().then((userDoc) => {
-        db.collection("courses")
+      const userDoc = await currentUser.get();
+      const querySnapshot = await db
+        .collection("courses")
         .where("code", "==", code)
-        .get()
-        .then((querySnapshot) => {
-          if(!querySnapshot.empty) {
-            const course = querySnapshot.docs[0];
+        .get();
 
-            const currentCourse = db.collection("courses").doc(course.id);
+      if (!querySnapshot.empty) {
+        const course = querySnapshot.docs[0];
 
-            currentCourse.get().then(async (courseDoc) => {
-              await currentCourse.update({
-                users: [...courseDoc.data().users, userDoc.id],
-              });
-  
-              await currentUser.update({
-                courses: [...userDoc.data().courses, courseDoc.id],
-              });
-              displayCourses();
-            })
-          } else {
-            console.error("No course found for the given course code.");
-          }
-        })
-      })
+        const currentCourse = db.collection("courses").doc(course.id);
+
+        const courseDoc = await currentCourse.get();
+
+        await currentCourse.update({
+          users: [...courseDoc.data().users, userDoc.id],
+        });
+
+        await currentUser.update({
+          courses: [...userDoc.data().courses, courseDoc.id],
+        });
+        
+        displayCourses();
+      } else {
+        console.error("No course found for the given course code.");
+      }
     } else {
       console.error("No user is signed in.");
     }
