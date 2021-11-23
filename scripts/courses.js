@@ -1,3 +1,18 @@
+function generateCourseCode() {
+  let code = "";
+  const codeLength = 8;
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < codeLength; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
+
+$(document).on("click", "#open-create-course", function () {
+  const code = generateCourseCode();
+  $("#new-course-code").val(code);
+})
+
 function createCourse() {
   //define a variable for the collection you want to create in Firestore to populate data
   const name = document.getElementById("new-course-name").value;

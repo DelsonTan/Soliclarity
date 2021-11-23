@@ -23,6 +23,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="/scripts/firebaseAPI.js"></script>
   <title>Soliclarity</title>
 </head>
@@ -50,7 +51,7 @@
   </div>
 
   <div class="create">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button id="open-create-course" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
       Create
     </button>
   </div>
@@ -60,7 +61,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Create a class</h5>
+          <h5 class="modal-title">Create a course</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -70,7 +71,7 @@
               <input type="text" id="new-course-name" class="form-control" placeholder="Enter course name">
 
               <label>Code</label>
-              <input type="text" id="new-course-code" class="form-control" value="999" disabled>
+              <input type="text" id="new-course-code" class="form-control" disabled>
 
               <label>Location</label>
               <input type="text" id="new-course-location" class="form-control" placeholder="Enter location">
