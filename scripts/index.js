@@ -93,8 +93,8 @@ function populateInfo() {
 }
 populateInfo();
 
-// function editEvent() {
-//   //Enable the form fields
-//   //console.log("edit is clicked");
-//   document.getElementById('personalInfoFields').disabled = false; //make all of the buttons and fields activated (not disabled)
-// }
+function editEvent() {
+  //Enable the form fields
+  //console.log("edit is clicked");
+  document.getElementById('personalInfoFields').disabled = false; //make all of the buttons and fields activated (not disabled)
+}
