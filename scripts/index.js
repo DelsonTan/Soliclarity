@@ -6,21 +6,22 @@ function addEvent() {
   const due_date = document.getElementById("dueDateField").value;
   const due_hour = document.getElementById("dueHourField").value;
 
-  firebase.auth().onAuthStateChanged((user) => {
+  firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      var currentUser = db.collection("users").doc(user.uid);
+      var currentUser = db.collection("users").doc(user.uid)
       var userID = user.uid;
-      currentUser.get().then(async () => {
-        await db.collection("events").add({
-          name,
-          notes,
-          course,
-          due_date,
-          due_hour,
-          users: [userID],
-        });
-        displayEvents();
-      });
+      currentUser.get()
+        .then(async (userDoc) => {
+          await db.collection("events").add({
+            name,
+            notes,
+            course,
+            due_date,
+            due_hour,
+            users: [userID]
+          })
+          displayEvents();
+        })
     } else {
       console.log("no user signed in");
     }
@@ -31,29 +32,69 @@ const btnAdd = document.querySelector(".btn-add");
 
 function displayEvents() {
   // reset by emptying the parent div
-  document.getElementById("verified-events").innerHTML = "";
+  document.getElementById("events-go-here").innerHTML = "";
 
   let CardTemplate = document.getElementById("CardTemplate");
 
-  db.collection("events")
-    .get() //get the events in firestore
-    .then((snap) => {
-      snap.forEach((doc) => {
+  db.collection("events").get() //get the events in firestore
+    .then(snap => {
+      snap.forEach(doc => {
         var course = doc.data().course;
         var details = doc.data().due_date;
         var name = doc.data().name;
+        var hour = doc.data().due_hour;
+        var notes = doc.data().notes;
         let newcard = CardTemplate.content.cloneNode(true); //clones template, points to card
 
-        newcard.querySelector(".card-body").setAttribute("id", doc.id);
+        newcard.querySelector('.card-body').setAttribute("id", doc.id);
 
         //update title and text and image
-        newcard.querySelector(".card-title").innerHTML = course;
-        newcard.querySelector(".card-time").innerHTML = details;
-        newcard.querySelector(".card-text").innerHTML = name;
+        newcard.querySelector('.card-title').innerHTML = course;
+        newcard.querySelector('.card-time').innerHTML = details;
+        newcard.querySelector('.card-text').innerHTML = name;
 
-        document.getElementById("verified-events").appendChild(newcard); //where the new card gets attached
-      });
-    });
+        // document.getElementById("nameFieldEdit").value = name;
+        // console.log(name);
+        // document.getElementById("dueDateFieldEdit").value = details;
+        // document.getElementById("courseFieldEdit").value = course;
+        // document.getElementById("dueHourFieldEdit").value = hour;
+        // document.getElementById("notesFieldEdit").value = notes;
+
+        //attach to gallery "events-go-here"
+        document.getElementById("events-go-here").appendChild(newcard);  //where the new card gets attached
+      })
+    })
 }
-
 displayEvents();
+
+function populateInfo() {
+
+  db.collection("events").get() //get the events in firestore
+    .then(snap => {
+      snap.forEach(doc => {
+        var name = doc.data().name;
+        var course = doc.data().course;
+        var date = doc.data().due_date;
+        var hour = doc.data().due_hour;
+        var notes = doc.data().notes;
+
+        if (name != null) {
+          document.getElementById("nameFieldEdit").value = name;
+        }
+        //console.log(name);
+        //document.getElementById("nameFieldEdit").value = name;
+        document.getElementById("dueDateFieldEdit").innerHTML = date;
+        document.getElementById("courseFieldEdit").value = course;
+        document.getElementById("dueHourFieldEdit").value = hour;
+        document.getElementById("notesFieldEdit").value = notes;
+  
+      })
+    })
+}
+populateInfo();
+
+function editEvent() {
+  //Enable the form fields
+  //console.log("edit is clicked");
+  document.getElementById('personalInfoFields').disabled = false; //make all of the buttons and fields activated (not disabled)
+}
