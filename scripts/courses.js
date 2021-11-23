@@ -14,6 +14,44 @@ $(document).on("click", "#open-create-course", function () {
   $("#new-course-code").val(code);
 });
 
+function joinCourse() {
+  const code = document.getElementById("join-course-code").value;
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      const currentUser = db.collection("users").doc(user.uid);
+
+      currentUser.get().then((userDoc) => {
+        db.collection("courses")
+        .where("code", "==", code)
+        .get()
+        .then((querySnapshot) => {
+          if(!querySnapshot.empty) {
+            const course = querySnapshot.docs[0];
+
+            const currentCourse = db.collection("courses").doc(course.id);
+
+            currentCourse.get().then(async (courseDoc) => {
+              await currentCourse.update({
+                users: [...courseDoc.data().users, userDoc.id],
+              });
+  
+              await currentUser.update({
+                courses: [...userDoc.data().courses, courseDoc.id],
+              });
+              displayCourses();
+            })
+          } else {
+            console.error("No course found for the given course code.");
+          }
+        })
+      })
+    } else {
+      console.error("No user is signed in.");
+    }
+  });
+}
+
 function createCourse() {
   //define a variable for the collection you want to create in Firestore to populate data
   const name = document.getElementById("new-course-name").value;
@@ -36,13 +74,13 @@ function createCourse() {
           endtime,
           users: [user.uid],
         });
-        await currentUser.set({
+        await currentUser.update({
           courses: [...userDoc.data().courses, courseRef.id],
         });
         displayCourses();
       });
     } else {
-      console.log("no user signed in");
+      console.error("No user is signed in.");
     }
   });
 }

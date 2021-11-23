@@ -12,8 +12,8 @@
   <link rel="stylesheet" type="text/css" href="styles/footer.css" />
 
   <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous" />
   <!-- Google Icons (Material Design)-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   <link href="https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Aclass%3A" rel="stylesheet" />
@@ -33,8 +33,7 @@
     <div class="course-item">
       <h5 class="course-title"></h5>
 
-      <button type="button" class="btn btn-primary" onclick="populateInfo()" data-bs-toggle="modal"
-        data-bs-target="#exampleModal">Test Description</button>
+      <button type="button" class="btn btn-primary" onclick="populateInfo()" data-bs-toggle="modal" data-bs-target="#exampleModal">Test Description</button>
 
       <div class="course-menu"></div>
     </div>
@@ -47,21 +46,40 @@
   <div id="course-list"></div>
 
   <div class="join">
-    <button type="button" class="btn btn-primary">Join</button>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#joinCourseModal">Join</button>
   </div>
 
   <div class="create">
-    <button id="open-create-course" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button id="open-create-course" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createEditCourseModal">
       Create
     </button>
   </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- Join Course Modal -->
+  <div class="modal fade" id="joinCourseModal" tabindex="-1" aria-labelledby="joinCourseModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Create a course</h5>
+          <h5 class="modal-title" id="joinCourseModalLabel">Join Course</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" id="join-course-code" class="form-control" placeholder="Enter course code">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="joinCourse()">Join Course</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create/Edit Course Modal -->
+  <div class="modal fade" id="createEditCourseModal" tabindex="-1" aria-labelledby="createEditCourseModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createEditCourseModalLabel">Create a course</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -95,8 +113,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" onclick="createCourse()"
-            data-bs-dismiss="modal">Confirm</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="createCourse()" >Create Course</button>
         </div>
       </div>
     </div>
@@ -114,8 +131,7 @@
   </footer>
 
   <script src="./scripts/courses.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
 </body>
 
