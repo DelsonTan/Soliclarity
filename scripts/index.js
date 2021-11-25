@@ -2,31 +2,44 @@ function addEvent() {
   //define a variable for the collection you want to create in Firestore to populate data
   const name = document.getElementById("nameField").value;
   const notes = document.getElementById("notesField").value;
-  const course = document.getElementById("courseField").value;
+  const course_id = document.getElementById("courseField").value;
   const due_date = document.getElementById("dueDateField").value;
   const due_hour = document.getElementById("dueHourField").value;
 
   firebase.auth().onAuthStateChanged(async (user) => {
     if (user) {
-      var currentUser = db.collection("users").doc(user.uid);
-      var userID = user.uid;
-      currentUser.get().then(async (userDoc) => {
-        await db.collection("events").add({
-          name,
-          notes,
-          course,
-          due_date,
-          due_hour,
-          users: [userID],
-        });
-        displayEvents();
+      userDocs = await db
+        .collection("users")
+        .where("courses", "array-contains", course_id)
+        .get();
+
+      const eventRef = await db.collection("events").add({
+        name,
+        notes,
+        course_id,
+        due_date,
+        due_hour,
+        users: userDocs.docs.map((userDoc) => userDoc.id),
       });
 
-      // 1. find users that belong to the course the event is in
-      // 2. add event id to all users, with status "unverified"
-      // 3. for the user that created it, status "verified"
-      // 4. include all user ids in "users" field for new event
-
+      
+      userDocs.forEach(async (userDoc) => {
+        const currentUser = await db.collection("users").doc(userDoc.id)
+        if (userDoc.id !== user.uid) {
+          currentUser.update({
+            events: [...userDoc.data().events, {
+              [eventRef.id]: "unverified"
+            }]
+          })
+        } else {
+          currentUser.update({
+            events: [...userDoc.data().events, {
+              [eventRef.id]: "verified"
+            }]
+          })
+        }
+      });
+      displayEvents();
     } else {
       console.log("no user signed in");
     }
@@ -103,27 +116,27 @@ function getCourseData() {
       courseField.innerHTML = "";
 
       db.collection("courses")
-      .where("users", "array-contains", user.uid)
-      .get()
-      .then((courseDocs) => {
-        courseDocs.forEach((courseDoc) => {
-          const option = document.createElement("option");
-          option.innerHTML = courseDoc.data().name;
-          option.setAttribute("id", courseDoc.id);
+        .where("users", "array-contains", user.uid)
+        .get()
+        .then((courseDocs) => {
+          courseDocs.forEach((courseDoc) => {
+            const option = document.createElement("option");
+            option.innerHTML = courseDoc.data().name;
+            option.setAttribute("value", courseDoc.id);
 
-          courseField.appendChild(option);
-        })
-      })
+            courseField.appendChild(option);
+          });
+          console.log(document.getElementById("courseField").value);
+        });
     } else {
       console.log("No user signed in.");
-    }})
+    }
+  });
 }
 
 const createEventModal = document.getElementById("ModalCreate");
 
-createEventModal.addEventListener('show.bs.modal', () => {
-  getCourseData()
-})
+createEventModal.addEventListener("show.bs.modal", () => getCourseData());
 
 function editEvent() {
   //Enable the form fields
