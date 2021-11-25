@@ -67,7 +67,7 @@ function displayEvents() {
 }
 displayEvents();
 
-function populateInfo() {
+function getEventData() {
 
   db.collection("events").get() //get the events in firestore
     .then(snap => {
@@ -81,8 +81,6 @@ function populateInfo() {
         if (name != null) {
           document.getElementById("nameFieldEdit").value = name;
         }
-        //console.log(name);
-        //document.getElementById("nameFieldEdit").value = name;
         document.getElementById("dueDateFieldEdit").innerHTML = date;
         document.getElementById("courseFieldEdit").value = course;
         document.getElementById("dueHourFieldEdit").value = hour;
@@ -91,7 +89,10 @@ function populateInfo() {
       })
     })
 }
-populateInfo();
+
+$(document).on("click", ".edit-event", function () {
+  getEventData();
+});
 
 function editEvent() {
   //Enable the form fields
