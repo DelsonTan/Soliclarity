@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
@@ -6,7 +6,7 @@ body {
   background-image: linear-gradient(to bottom right, rgb(100, 47, 47) , rgb(71, 59, 81), rgb(71, 59, 81));
 
 }
-nav, footer {
+nav {
   background:rgb(24, 26, 32)
 }
 .navbar-text {
