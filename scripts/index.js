@@ -72,6 +72,8 @@ function getCountdown(date) {
 function displayEvents() {
   // reset by emptying the parent div
   document.getElementById("verified-events").innerHTML = "";
+  document.getElementById("unverified-events").innerHTML = "";
+  document.getElementById("complete-events").innerHTML = "";
 
   let CardTemplate = document.getElementById("CardTemplate");
   
