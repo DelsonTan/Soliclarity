@@ -51,7 +51,6 @@ function addEvent() {
 
 // Accepts a Date object and returns the string representation of the countdown timer.
 function getCountdown(date) {
-  console.log(date)
   if(!date) {
     return "--d --h --m --s";
   }
@@ -78,7 +77,7 @@ function getCountdown(date) {
 
 function displayEvents() {
   // reset by emptying the parent div
-  document.getElementById("events-go-here").innerHTML = "";
+  document.getElementById("verified-events").innerHTML = "";
 
   let CardTemplate = document.getElementById("CardTemplate");
 
@@ -88,14 +87,15 @@ function displayEvents() {
       const userDoc = await db.collection("users").doc(user.uid).get()
       const userEvents = userDoc.data().events;
 
-      const getEventQueries= userEvents.map((event) => db.collection("events").doc(Object.keys(event)[0]).get());
+      const getEventQueries = userEvents.map((event) => db.collection("events").doc(Object.keys(event)[0]).get());
 
       const eventDocs = await Promise.all(getEventQueries);
       
       eventDocs.forEach((doc) => {
-        var courseName = doc.data().course_name || "No Course";
-        var countdown = getCountdown(doc.data().date);
-        var name = doc.data().name || "Untitled";
+        const event = doc.data();
+        var courseName = event.course_name || "No Course";
+        var countdown = getCountdown(event.date);
+        var name = event.name || "Untitled";
         let newcard = CardTemplate.content.cloneNode(true);
   
         newcard.querySelector(".edit-event").setAttribute("id", doc.id);
@@ -104,9 +104,8 @@ function displayEvents() {
         newcard.querySelector(".card-title").innerHTML = courseName;
         newcard.querySelector(".card-time").innerHTML = countdown;
         newcard.querySelector(".card-text").innerHTML = name;
-  
-        //attach to gallery "events-go-here"
-        document.getElementById("events-go-here").appendChild(newcard);
+        
+        document.getElementById("verified-events").appendChild(newcard);
       });
     } else {
       console.log("no user signed in");
