@@ -21,8 +21,7 @@ function addEvent() {
         notes,
         course_id,
         course_name,
-        due_date,
-        due_hour,
+        date: new Date(due_date + " " + due_hour).getTime(),
         users: userDocs.docs.map((userDoc) => userDoc.id),
       });
 
@@ -50,7 +49,27 @@ function addEvent() {
   });
 }
 
-const btnAdd = document.querySelector(".btn-add");
+// Accepts a Date object and returns the string representation of the countdown timer.
+function getCountdown(date) {
+  console.log(date)
+  if(!date) {
+    return "--d --h --m --s";
+  }
+  const now = Date.now();
+  const timeDiff = date - now;
+
+  if (timeDiff > 0) {
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+  
+    return days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+  } else {
+    return "0d 0h 0m 0s";
+  }
+}
 
 function displayEvents() {
   // reset by emptying the parent div
@@ -64,7 +83,7 @@ function displayEvents() {
       snap.forEach((doc) => {
         console.log(doc.data());
         var courseName = doc.data().course_name || "No Course";
-        var details = doc.data().due_date || "--,--,--";
+        var countdown = getCountdown(doc.data().date) ;
         var name = doc.data().name || "Untitled";
         let newcard = CardTemplate.content.cloneNode(true);
 
@@ -72,7 +91,7 @@ function displayEvents() {
 
         //update title and text and image
         newcard.querySelector(".card-title").innerHTML = courseName;
-        newcard.querySelector(".card-time").innerHTML = details;
+        newcard.querySelector(".card-time").innerHTML = countdown;
         newcard.querySelector(".card-text").innerHTML = name;
 
         //attach to gallery "events-go-here"
