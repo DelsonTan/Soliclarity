@@ -15,7 +15,11 @@ header {
   color: rgb(207, 191, 191);
   text-align: center;
 }
-
+.navbar-logout{
+  position:absolute;
+  top: 5pt;
+  right: 10pt;
+}
 .course-item {
   width: 50em;
   margin: auto;
