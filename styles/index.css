@@ -2,9 +2,15 @@
   margin: 0;
   padding: 0;
 }
+
+html {
+  height: 100%;
+}
+
 body {
   background-image: linear-gradient(to bottom right, rgb(100, 47, 47) , rgb(71, 59, 81), rgb(71, 59, 81));
-
+  font-family: 'Poppins', sans-serif;
+  min-height: 100%;
 }
 nav {
   background:rgb(24, 26, 32)
@@ -91,11 +97,9 @@ background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
 .category-text{
   text-align: center;
   font-size: 20pt;
-  font-family: 'Poppins', sans-serif;
   color: rgb(255, 212, 237);
 }
 .card-title{
-  font-family: 'Poppins', sans-serif;
   font-size: 20pt;
 }
 .card-time{
