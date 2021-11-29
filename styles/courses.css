@@ -1,4 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400&display=swap");
+html {
+  height: 100%;
+}
 
 body {
   background-image: linear-gradient(to bottom right, rgb(100, 47, 47) , rgb(71, 59, 81), rgb(71, 59, 81));
@@ -39,10 +42,6 @@ header {
   grid-row: 1 / 2;
   background-color: red;
   color: white;
-}
-
-html {
-  height: 100%;
 }
 
 .join {
