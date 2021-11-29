@@ -1,8 +1,11 @@
 function addEvent() {
+  const courseFieldSelect = document.getElementById("courseField");
+
   //define a variable for the collection you want to create in Firestore to populate data
   const name = document.getElementById("nameField").value;
   const notes = document.getElementById("notesField").value;
-  const course_id = document.getElementById("courseField").value;
+  const course_id = courseFieldSelect.value;
+  const course_name = courseFieldSelect.options[courseFieldSelect.selectedIndex].text;
   const due_date = document.getElementById("dueDateField").value;
   const due_hour = document.getElementById("dueHourField").value;
 
@@ -17,6 +20,7 @@ function addEvent() {
         name,
         notes,
         course_id,
+        course_name,
         due_date,
         due_hour,
         users: userDocs.docs.map((userDoc) => userDoc.id),
@@ -58,7 +62,8 @@ function displayEvents() {
     .get() //get the events in firestore
     .then((snap) => {
       snap.forEach((doc) => {
-        var course = doc.data().course;
+        console.log(doc.data());
+        var courseName = doc.data().course_name;
         var details = doc.data().due_date;
         var name = doc.data().name;
         var hour = doc.data().due_hour;
@@ -68,7 +73,7 @@ function displayEvents() {
         newcard.querySelector(".edit-event").setAttribute("id", doc.id);
 
         //update title and text and image
-        newcard.querySelector(".card-title").innerHTML = course;
+        newcard.querySelector(".card-title").innerHTML = courseName;
         newcard.querySelector(".card-time").innerHTML = details;
         newcard.querySelector(".card-text").innerHTML = name;
 

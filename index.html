@@ -33,7 +33,17 @@
 </head>
 
 <body>
-
+  <template id="CardTemplate">
+    <div class="card py-2 mx-2" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title"></h5>
+        <p class="card-time"></p>
+        <p class="card-text"></p>
+        <button type="button" class="btn btn-light edit-event" data-bs-toggle="modal" data-bs-target="#ModalEdit">✎</button>
+        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#ModalComplete">✅</button>
+      </div>
+    </div>
+  </template>
   
   <nav>
     <h1 class="navbar-text">
@@ -146,19 +156,6 @@
       </div>
     </div>
   </div>
- 
-
-  <template id="CardTemplate">
-      <div class="card py-2 mx-2" style="width: 18rem;">
-          <div class="card-body">
-              <h5 class="card-title">course name goes here</h5>
-              <p class="card-time">due date goes here</p>
-              <p class="card-text">assignment goes here</p>
-              <button type="button" class="btn btn-light edit-event" data-bs-toggle="modal" data-bs-target="#ModalEdit">✎</button>
-              <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#ModalComplete">✅</button>
-          </div>
-      </div>
-  </template>
 
   <!-- Modal for Completing Event -->
   <div class="modal fade" id="ModalComplete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
