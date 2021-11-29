@@ -98,23 +98,18 @@
               <label>Zoom Link</label>
               <input type="text" id="new-course-zoom-link" class="form-control" placeholder="Enter location">
 
-
-
               <label>Course Time</label>
-              <form action="/action_page.php">
-                <label for="appt">Start:</label>
-                <input type="time" id="new-course-start-time" name="appt">
-              </form>
-              <form action="/action_page.php">
-                <label for="appt">End:</label>
-                <input type="time" id="new-course-end-time" name="appt">
-              </form>
+              <label for="appt">Start:</label>
+              <input type="time" id="new-course-start-time" name="appt">
+
+              <label for="appt">End:</label>
+              <input type="time" id="new-course-end-time" name="appt">
             </div>
           </fieldset>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="createCourse()" >Create Course</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="createCourse()">Create Course</button>
         </div>
       </div>
     </div>
