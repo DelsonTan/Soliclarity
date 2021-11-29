@@ -63,12 +63,10 @@ function displayEvents() {
     .then((snap) => {
       snap.forEach((doc) => {
         console.log(doc.data());
-        var courseName = doc.data().course_name;
-        var details = doc.data().due_date;
-        var name = doc.data().name;
-        var hour = doc.data().due_hour;
-        var notes = doc.data().notes;
-        let newcard = CardTemplate.content.cloneNode(true); //clones template, points to card
+        var courseName = doc.data().course_name || "No Course";
+        var details = doc.data().due_date || "--,--,--";
+        var name = doc.data().name || "Untitled";
+        let newcard = CardTemplate.content.cloneNode(true);
 
         newcard.querySelector(".edit-event").setAttribute("id", doc.id);
 
@@ -77,15 +75,8 @@ function displayEvents() {
         newcard.querySelector(".card-time").innerHTML = details;
         newcard.querySelector(".card-text").innerHTML = name;
 
-        // document.getElementById("nameFieldEdit").value = name;
-        // console.log(name);
-        // document.getElementById("dueDateFieldEdit").value = details;
-        // document.getElementById("courseFieldEdit").value = course;
-        // document.getElementById("dueHourFieldEdit").value = hour;
-        // document.getElementById("notesFieldEdit").value = notes;
-
         //attach to gallery "events-go-here"
-        document.getElementById("events-go-here").appendChild(newcard); //where the new card gets attached
+        document.getElementById("events-go-here").appendChild(newcard);
       });
     });
 }
