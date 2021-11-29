@@ -71,33 +71,48 @@ function getCountdown(date) {
   }
 }
 
+// displayVerifiedEvents could grab events by doing user.events.filter((event) => event.status === "verified"
+// displayUnverifiedEvents could grab events by doing user.events.filter((event) => event.status === "unverified"
+// displayCompletedEvents could grab events by doing user.events.filter((event) => event.status === "completed"
+
+
 function displayEvents() {
   // reset by emptying the parent div
   document.getElementById("events-go-here").innerHTML = "";
 
   let CardTemplate = document.getElementById("CardTemplate");
 
-  db.collection("events")
-    .get() //get the events in firestore
-    .then((snap) => {
-      snap.forEach((doc) => {
-        console.log(doc.data());
+  
+  firebase.auth().onAuthStateChanged(async (user) => {
+    if (user) {
+      const userDoc = await db.collection("users").doc(user.uid).get()
+      const userEvents = userDoc.data().events;
+
+      const getEventQueries= userEvents.map((event) => db.collection("events").doc(Object.keys(event)[0]).get());
+
+      const eventDocs = await Promise.all(getEventQueries);
+      
+      eventDocs.forEach((doc) => {
         var courseName = doc.data().course_name || "No Course";
-        var countdown = getCountdown(doc.data().date) ;
+        var countdown = getCountdown(doc.data().date);
         var name = doc.data().name || "Untitled";
         let newcard = CardTemplate.content.cloneNode(true);
-
+  
         newcard.querySelector(".edit-event").setAttribute("id", doc.id);
-
+  
         //update title and text and image
         newcard.querySelector(".card-title").innerHTML = courseName;
         newcard.querySelector(".card-time").innerHTML = countdown;
         newcard.querySelector(".card-text").innerHTML = name;
-
+  
         //attach to gallery "events-go-here"
         document.getElementById("events-go-here").appendChild(newcard);
       });
-    });
+    } else {
+      console.log("no user signed in");
+    }
+  });
+  
 }
 displayEvents();
 
