@@ -174,7 +174,6 @@ function getCourseData() {
 
             courseField.appendChild(option);
           });
-          console.log(document.getElementById("courseField").value);
         });
     } else {
       console.log("No user signed in.");
