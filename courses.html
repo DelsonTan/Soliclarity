@@ -12,8 +12,8 @@
     <link rel="stylesheet" type="text/css" href="styles/footer.css" />
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-        crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <!-- Google Icons (Material Design)-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link href="https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Aclass%3A" rel="stylesheet" />
@@ -33,9 +33,8 @@
     <template id="course-row">
         <div class="course-item">
             <h5 class="course-title"></h5>
-
-            <button type="button" class="btn btn-primary" onclick="populateInfo()" data-bs-toggle="modal" data-bs-target="#createEditCourseModal">Course information</button>
-
+            <button type="button" class="btn btn-dark" onclick="populateInfo()" data-bs-toggle="modal"
+                data-bs-target="#createEditCourseModal" style="border-radius: -20em;">Course information</button>
             <div class="course-menu"></div>
         </div>
     </template>
@@ -45,24 +44,29 @@
             <a>Courses</a>
         </h1>
         <div class="navbar-logout">
-            <a href="login.html" class="btn btn-dark" role="button">Logout</a>
+            <a href="login.html" class="btn btn-dark" role="button" style="background-color: rgb(56, 74, 75);">Logout</a>
         </div>
     </header>
 
     <div id="course-list"></div>
 
-    <div class="join">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#joinCourseModal">Join</button>
+    <div id="btnGrid">
+        <div class="join">
+            <button type="button" class="btn btn-dark" data-bs-toggle="modal"
+                data-bs-target="#joinCourseModal" style="box-shadow: 0 0 12px rgb(0, 0, 0); width: 70px;">Join</button>
+        </div>
+        <div class="create">
+            <button id="open-create-course" class="btn btn-dark" data-bs-toggle="modal"
+                data-bs-target="#createEditCourseModal" style="box-shadow: 0 0 12px rgb(0, 0, 0);">
+                Create
+            </button>
+        </div>
     </div>
 
-    <div class="create">
-        <button id="open-create-course" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createEditCourseModal">
-            Create
-        </button>
-    </div>
 
     <!-- Join Course Modal -->
-    <div class="modal fade" id="joinCourseModal" tabindex="-1" aria-labelledby="joinCourseModalLabel" aria-hidden="true">
+    <div class="modal fade" id="joinCourseModal" tabindex="-1" aria-labelledby="joinCourseModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -74,14 +78,16 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="joinCourse()">Join Course</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="joinCourse()">Join
+                        Course</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Create/Edit Course Modal -->
-    <div class="modal fade" id="createEditCourseModal" tabindex="-1" aria-labelledby="createEditCourseModalLabel" aria-hidden="true">
+    <div class="modal fade" id="createEditCourseModal" tabindex="-1" aria-labelledby="createEditCourseModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -92,7 +98,8 @@
                     <fieldset class="mb-3" id="personalInfoFields">
                         <div class="form-group">
                             <label>Course Name</label>
-                            <input type="text" id="new-course-name" class="form-control" placeholder="Enter course name">
+                            <input type="text" id="new-course-name" class="form-control"
+                                placeholder="Enter course name">
                             <footer class="navbar fixed-bottom justify-content-evenly">
                                 <a class="bottom-nav-button" href="index.html">
                                     <i class="material-icons">home</i>
@@ -108,10 +115,12 @@
                             <input type="text" id="new-course-code" class="form-control" disabled>
 
                             <label>Location</label>
-                            <input type="text" id="new-course-location" class="form-control" placeholder="Enter location">
+                            <input type="text" id="new-course-location" class="form-control"
+                                placeholder="Enter location">
 
                             <label>Zoom Link</label>
-                            <input type="text" id="new-course-zoom-link" class="form-control" placeholder="Enter location">
+                            <input type="text" id="new-course-zoom-link" class="form-control"
+                                placeholder="Enter location">
 
 
 
@@ -129,7 +138,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="createCourse()" id="create-course-button">Create Course</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="createCourse()"
+                        id="create-course-button">Create Course</button>
                 </div>
             </div>
         </div>
@@ -147,7 +157,8 @@
     </footer>
 
     <script src="./scripts/courses.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 </body>
 

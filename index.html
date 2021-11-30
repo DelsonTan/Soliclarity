@@ -34,13 +34,13 @@
 
 <body>
   <template id="CardTemplate">
-    <div class="card py-2 mx-2" style="width: 18rem;">
+    <div class="card py-2 mx-2" style="width: 19rem; color: white; background-color: rgb(71, 70, 71); background-image: linear-gradient(315deg, #353e46 0%, #424a5e 74%); box-shadow: 0 0 5px rgb(243, 243, 243);">
       <div class="card-body">
         <h5 class="card-title"></h5>
         <p class="card-time"></p>
         <p class="card-text"></p>
-        <button type="button" class="btn btn-light edit-event" data-bs-toggle="modal" data-bs-target="#ModalEdit">✎</button>
-        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#ModalComplete">✅</button>
+        <button type="button" class="btn btn-light edit-event" data-bs-toggle="modal" data-bs-target="#ModalEdit" style="background-color: #A2A79E;">✎</button>
+        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#ModalComplete" style="background-color: #A2A79E;">✔</button>
       </div>
     </div>
   </template>
@@ -50,18 +50,18 @@
       <a>Events</a>
     </h1>
     <div class="navbar-logout">
-      <a href="login.html" class="btn btn-dark" role="button">Logout</a>
+      <a href="login.html" class="btn btn-dark" role="button" style="background-color: rgb(56, 74, 75);">Logout</a>
     </div>
   </header>
 
   <br><br>
   <div class="progressnav">
-    <div class="progressbar">
+    <!-- <div class="progressbar">
       <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-    </div>
+    </div> -->
     <div class="progressadd">
-      <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#ModalCreate">
-        +
+      <button type="button" class="btn btn-dark btnAdd" data-bs-toggle="modal" data-bs-target="#ModalCreate" style="box-shadow: 0 0 6px rgb(243, 243, 243);">
+        Add Task
       </button>
     </div>
   </div>
@@ -156,7 +156,6 @@
               <label>Due Date: </label>
               <input type="date" id="dueDateFieldEdit" name="date" />
               <input type="time" id="dueHourFieldEdit">
-              <select class="form-control" id="dueHourFieldEdit">
             </div>
             <br><br>
             <div class="form-group">
@@ -165,10 +164,9 @@
             </div><br>
           </fieldset>
           <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger btn-delete" onclick="deleteEvent()" data-bs-dismiss="modal">Delete Event</button>
-            <button type="button" class="btn btn-secondary" onclick="editEvent()">Edit</button>
-            <button type="button" class="btn btn-primary btn-saveEdit" onclick="saveEvent()" data-bs-dismiss="modal">Save</button>
+            <button type="button" class="btn btn-danger btn-delete" onclick="deleteEvent()" data-bs-dismiss="modal" style="margin-right: 198pt; margin-bottom: 2pt;">Delete Event</button>
+            <button type="button" class="btn btn-secondary" onclick="editEvent()" style="margin-right: 2pt; margin-bottom: 2pt;">Edit</button>
+            <button type="button" class="btn btn-primary btn-saveEdit" onclick="saveEvent()" data-bs-dismiss="modal" style="margin-right: 2pt; margin-bottom: 2pt;">Save</button>
           </div>
         </form>
       </div>
@@ -206,7 +204,6 @@
     <!-- Here is container for cards  -->
     <div class="container">
       <div id="unverified-events" class="row row-cols-auto">
-
       </div>
     </div>
   </div>

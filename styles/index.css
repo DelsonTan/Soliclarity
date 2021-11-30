@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Balsamiq+Sans:ital@1&family=Nunito:wght@700&family=Pacifico&family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Balsamiq+Sans:ital@1&family=Lato:wght@300&family=Nunito:wght@700&family=Orbitron:wght@500&family=Pacifico&family=Raleway:ital@1&family=Shadows+Into+Light&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -8,12 +10,13 @@ html {
 }
 
 body {
-  background-image: linear-gradient(to bottom right, rgb(100, 47, 47) , rgb(71, 59, 81), rgb(71, 59, 81));
+  background-image: linear-gradient(to right, rgb(100, 47, 47) , rgb(71, 59, 81), rgb(71, 59, 81));
   font-family: 'Poppins', sans-serif;
   min-height: 100%;
 }
 header {
-  background:rgb(24, 26, 32)
+  font-family: 'Lato', sans-serif;
+  background:rgb(24, 26, 32);
 }
 .navbar-text {
   color: rgb(207, 191, 191);
@@ -21,7 +24,7 @@ header {
 }
 .navbar-logout{
   position:absolute;
-  top: 5pt;
+  top: 10pt;
   right: 10pt;
 }
 .verifiedgreen {
@@ -36,7 +39,7 @@ background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
   background-color: #ff7878;
   background-image: linear-gradient(315deg, #ff7878 0%, #ff0000 74%);
 }
-.unverifiedgrey {
+.unverified-events {
   background-color: rgb(71, 70, 71);
   background-image: linear-gradient(315deg, #353e46 0%, #2e3547 74%);
   color: #fff;
@@ -75,40 +78,36 @@ background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
   width: 100%;
   margin: 0 auto;
   display: flex;
-  padding-left: 10%;
   justify-content: center;
 }
-.progressbar{
-  width: 80%;
-  float:left;
-  height:25px;
-  background:gray;
-  margin:5pt;
-}
-.progressadd{
-  width: 15%;
-  float:left;
-  height:25px;
-}
+
 .card {
   width: 90%;
   margin: 35px;
 }
 .category-text{
   text-align: center;
-  font-size: 20pt;
+  font-size: 25pt;
   color: rgb(255, 212, 237);
+  font-family: 'Balsamiq Sans', cursive;
+  font-family: 'Lato', sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 .card-title{
-  font-size: 20pt;
+  font-size: 18pt;
+  font-family: 'Raleway', sans-serif;
 }
 .card-time{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
   font-size: 30pt;
+  font-family: 'Architects Daughter', cursive;
+  font-family: 'Balsamiq Sans', cursive;
+  font-family: 'Lato', sans-serif;
 }
-.card-info{
-  font-size: 18pt;
+.card-text{
+  font-size: 14pt;
+  font-family: 'Nunito', sans-serif;
 }
 .cardgrid{
   display: grid;
