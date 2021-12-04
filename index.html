@@ -40,7 +40,7 @@
         <p class="card-time"></p>
         <p class="card-text"></p>
         <button type="button" class="btn btn-light edit-event" data-bs-toggle="modal" data-bs-target="#ModalEdit" style="background-color: #A2A79E;">✎</button>
-        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#ModalComplete" style="background-color: #A2A79E;">✔</button>
+        <button type="button" class="btn btn-light complete-event" data-bs-toggle="modal" data-bs-target="#ModalComplete" style="background-color: #A2A79E;">✔</button>
       </div>
     </div>
   </template>
@@ -61,7 +61,7 @@
     </div> -->
     <div class="progressadd">
       <button type="button" class="btn btn-dark btnAdd" data-bs-toggle="modal" data-bs-target="#ModalCreate" style="box-shadow: 0 0 6px rgb(243, 243, 243);">
-        Add Task
+        Add Event
       </button>
     </div>
   </div>
@@ -112,15 +112,15 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="ModalCompleteLabel">Complete Task</h5>
+          <h5 class="modal-title" id="ModalCompleteLabel">Complete Event</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          Press Confirm to Complete Task
+          Press Confirm to Complete Event
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary">Confirm</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="completeEvent()">Confirm</button>
         </div>
       </div>
     </div>
