@@ -107,8 +107,6 @@ background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
   text-align: center;
   font-size: 25pt;
   color: rgb(255, 212, 237);
-  font-family: 'Balsamiq Sans', cursive;
-  font-family: 'Lato', sans-serif;
   font-family: 'Raleway', sans-serif;
 }
 
@@ -118,11 +116,8 @@ background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
 }
 
 .card-time{
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
   font-size: 30pt;
-  font-family: 'Architects Daughter', cursive;
-  font-family: 'Balsamiq Sans', cursive;
   font-family: 'Lato', sans-serif;
 }
 

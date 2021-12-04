@@ -187,6 +187,5 @@ createEventModal.addEventListener("show.bs.modal", () => getCourseData());
 
 function editEvent() {
   //Enable the form fields
-  //console.log("edit is clicked");
   document.getElementById("personalInfoFieldsEdit").disabled = false; //make all of the buttons and fields activated (not disabled)
 }
