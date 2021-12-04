@@ -36,7 +36,6 @@ header {
   grid-template-rows: auto;
   background-color: #735353;
   box-shadow: 0 0 8px rgb(48, 45, 45);
-  /* border: 2px solid black; */
 }
 
 .course-title {

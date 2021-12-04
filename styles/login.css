@@ -3,18 +3,22 @@
 html {
   height: 100%;
 }
+
 body {
   min-height: 100%;
   background-image: linear-gradient(to bottom right, rgb(100, 47, 47) , rgb(71, 59, 81), rgb(71, 59, 81));
 }
+
 nav {
   background-color:rgb(24, 26, 32);
 }
+
 .navbar-text {
   color: rgb(207, 191, 191);
   text-align: center;
   font-family: 'Lato', sans-serif;
 }
+
 #firebaseui-auth-container{
   padding-top: 60px;
 }

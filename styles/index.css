@@ -15,66 +15,82 @@ body {
   font-family: 'Poppins', sans-serif;
   min-height: 100%;
 }
+
 header {
   font-family: 'Lato', sans-serif;
   background:rgb(24, 26, 32);
 }
+
 .navbar-text {
   color: rgb(207, 191, 191);
   text-align: center;
 }
+
 .navbar-logout{
   position:absolute;
   top: 10pt;
   right: 10pt;
 }
+
 .verifiedgreen {
   background-color: #3bb78f;
 background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
-  }
+}
+
 .verifiedyellow {
   background-color: #b3dfa1;
   background-image: linear-gradient(315deg, #b3dfa1 0%, #f0e703 74%);
 }
+
 .verifiedred {
   background-color: #ff7878;
   background-image: linear-gradient(315deg, #ff7878 0%, #ff0000 74%);
 }
+
 .unverified-events {
   background-color: rgb(71, 70, 71);
   background-image: linear-gradient(315deg, #353e46 0%, #2e3547 74%);
   color: #fff;
 }
+
 .finishedred {
   background:rgb(209, 151, 146)
 }
+
 .finishedyellow {
   background-color: #e1bc29;
   background-image: linear-gradient(316deg, #e1bc29 0%, #e36463 74%);
 }
+
 .finished{
   background: rgb(71, 70, 71);
   color: white;
 }
+
 .finishedred{
   background: rgb(199, 170, 170);
 }
+
 .finishedyellow{
   background: rgb(184, 189, 155);
 }
+
 .finishedgreen{
   background: rgb(177, 219, 190);
 }
+
 .float-container {
   border: 3px solid;
   padding: 20px;
 }
+
 .float-child {
   width: 50%;
   float: left;
   padding: 20px;
   border: 2px;
 }
+
 .addEventBtn {
   width: 100%;
   margin: 0 auto;
@@ -86,6 +102,7 @@ background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
   width: 90%;
   margin: 35px;
 }
+
 .category-text{
   text-align: center;
   font-size: 25pt;
@@ -94,10 +111,12 @@ background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
   font-family: 'Lato', sans-serif;
   font-family: 'Raleway', sans-serif;
 }
+
 .card-title{
   font-size: 18pt;
   font-family: 'Raleway', sans-serif;
 }
+
 .card-time{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
@@ -106,10 +125,12 @@ background-image: linear-gradient(315deg, #3bb78f 0%, #0bab64 74%);
   font-family: 'Balsamiq Sans', cursive;
   font-family: 'Lato', sans-serif;
 }
+
 .card-text{
   font-size: 14pt;
   font-family: 'Nunito', sans-serif;
 }
+
 .cardgrid{
   display: grid;
   grid-template-columns: 50% 50%;

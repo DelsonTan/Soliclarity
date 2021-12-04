@@ -1,240 +1,240 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8">
-  <title>Soliclarity</title>
-  <meta name="comp1800 boilerplate code" content="my bcit project">
-  <meta name="author" content="BCIT">
+  <head>
+    <meta charset="utf-8">
+    <title>Soliclarity</title>
+    <meta name="comp1800 boilerplate code" content="my bcit project">
+    <meta name="author" content="BCIT">
 
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Stylesheet Import -->
-  <link rel="stylesheet" href="styles/footer.css" />
-  <link rel="stylesheet" type="text/css" href="styles/index.css">
+    <!-- Stylesheet Import -->
+    <link rel="stylesheet" href="styles/footer.css" />
+    <link rel="stylesheet" type="text/css" href="styles/index.css">
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-    crossorigin="anonymous" />
-  <!-- Google Icons (Material Design)-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link href="https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Aclass%3A" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous" />
+    <!-- Google Icons (Material Design)-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://fonts.google.com/icons?selected=Material%20Icons%20Outlined%3Aclass%3A" rel="stylesheet" />
 
-  <!--Firebase 8 CDNS-->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <!--Firebase 8 CDNS-->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="/scripts/firebaseAPI.js"></script>
-</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/scripts/firebaseAPI.js"></script>
+  </head>
 
-<body>
-  <template id="CardTemplate">
-    <div class="card py-2 mx-2" style="width: 19rem; color: white; background-color: rgb(71, 70, 71); background-image: linear-gradient(315deg, #353e46 0%, #424a5e 74%); box-shadow: 0 0 5px rgb(243, 243, 243);">
-      <div class="card-body">
-        <h5 class="card-title"></h5>
-        <p class="card-time"></p>
-        <p class="card-text"></p>
-        <button type="button" class="btn btn-light edit-event" data-bs-toggle="modal" data-bs-target="#ModalEdit" style="background-color: #A2A79E;">✎</button>
-        <button type="button" class="btn btn-light complete-event" data-bs-toggle="modal" data-bs-target="#ModalComplete" style="background-color: #A2A79E;">✔</button>
+  <body>
+    <template id="CardTemplate">
+      <div class="card py-2 mx-2" style="width: 19rem; color: white; background-color: rgb(71, 70, 71); background-image: linear-gradient(315deg, #353e46 0%, #424a5e 74%); box-shadow: 0 0 5px rgb(243, 243, 243);">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p class="card-time"></p>
+          <p class="card-text"></p>
+          <button type="button" class="btn btn-light edit-event" data-bs-toggle="modal" data-bs-target="#ModalEdit" style="background-color: #A2A79E;">✎</button>
+          <button type="button" class="btn btn-light complete-event" data-bs-toggle="modal" data-bs-target="#ModalComplete" style="background-color: #A2A79E;">✔</button>
+        </div>
+      </div>
+    </template>
+
+    <header>
+      <h1 class="navbar-text">
+        <a>Events</a>
+      </h1>
+      <div class="navbar-logout">
+        <a href="login.html" class="btn btn-dark" role="button" style="background-color: rgb(56, 74, 75);">Logout</a>
+      </div>
+    </header>
+
+    <br><br>
+    <div class="addEventBtn">
+      <button type="button" class="btn btn-dark btnAdd" data-bs-toggle="modal" data-bs-target="#ModalCreate" style="box-shadow: 0 0 6px rgb(243, 243, 243);">
+        Add Event
+      </button>
+    </div>
+    <br><br>
+
+    <!-- Modal for Creating New Event -->
+    <div class="modal fade" id="ModalCreate" tabindex="-1" aria-labelledby="ModalCreateLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalCreateLabel">Create New Event</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form>
+            <fieldset class="mb-3" id="personalInfo">
+              <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" id="nameField" placeholder="i.e. &quot;Assignment 1&quot;">
+              </div><br>
+
+              <div class="form-group">
+                <label>Select Course</label>
+                <select class="form-control" id="courseField"></select>
+                <br>
+              </div>
+              <div>
+                <label>Due Date: </label>
+                <input type="date" id="dueDateField" name="date" />
+                <input type="time" id="dueHourField">
+              </div>
+              <br><br>
+              <div class="form-group">
+                <label>Notes</label>
+                <input type="text" class="form-control" id="notesField" placeholder="Add Notes">
+              </div><br>
+            </fieldset>
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn-add" onclick="addEvent()" data-bs-dismiss="modal">Add</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </template>
 
-  <header>
-    <h1 class="navbar-text">
-      <a>Events</a>
-    </h1>
-    <div class="navbar-logout">
-      <a href="login.html" class="btn btn-dark" role="button" style="background-color: rgb(56, 74, 75);">Logout</a>
-    </div>
-  </header>
-
-  <br><br>
-  <div class="addEventBtn">
-    <button type="button" class="btn btn-dark btnAdd" data-bs-toggle="modal" data-bs-target="#ModalCreate" style="box-shadow: 0 0 6px rgb(243, 243, 243);">
-      Add Event
-    </button>
-  </div>
-  <br><br>
-
-  <!-- Modal for Creating New Event -->
-  <div class="modal fade" id="ModalCreate" tabindex="-1" aria-labelledby="ModalCreateLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ModalCreateLabel">Create New Event</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form>
-          <fieldset class="mb-3" id="personalInfo">
-            <div class="form-group">
-              <label>Title</label>
-              <input type="text" class="form-control" id="nameField" placeholder="i.e. &quot;Assignment 1&quot;">
-            </div><br>
-
-            <div class="form-group">
-              <label>Select Course</label>
-              <select class="form-control" id="courseField"></select>
-              <br>
-            </div>
-            <div>
-              <label>Due Date: </label>
-              <input type="date" id="dueDateField" name="date" />
-              <input type="time" id="dueHourField">
-            </div>
-            <br><br>
-            <div class="form-group">
-              <label>Notes</label>
-              <input type="text" class="form-control" id="notesField" placeholder="Add Notes">
-            </div><br>
-          </fieldset>
-          <div class="d-flex justify-content-end">
+    <!-- Modal for Completing Event -->
+    <div class="modal fade" id="ModalComplete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalCompleteLabel">Confirm Event</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Press to Confirm Event
+          </div>
+          <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn-add" onclick="addEvent()" data-bs-dismiss="modal">Add</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="completeEvent()">Confirm</button>
           </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal for Completing Event -->
-  <div class="modal fade" id="ModalComplete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ModalCompleteLabel">Confirm Event</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Press to Confirm Event
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="completeEvent()">Confirm</button>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Modal for Editing an Event -->
-  <div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ModalEditLabel">Edit Event</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form>
-          <fieldset class="mb-3" id="personalInfoFieldsEdit" disabled>
-            <div class="form-group">
-              <label>Title</label>
-              <input type="text" class="form-control" id="nameFieldEdit" placeholder="i.e. &quot;Assignment 1&quot;">
-            </div><br>
-
-            <div class="form-group">
-              <label>Select Class</label>
-              <select class="form-control" id="courseFieldEdit">
-                <option>COMP 1110</option>
-                <option>COMM 1116</option>
-                <option>COMP 1510</option>
-                <option>COMP 1712</option>
-                <option>COMP 1800</option>
-              </select>
-              <br>
-            </div>
-            <div>
-              <label>Due Date: </label>
-              <input type="date" id="dueDateFieldEdit" name="date" />
-              <input type="time" id="dueHourFieldEdit">
-            </div>
-            <br><br>
-            <div class="form-group">
-              <label>Notes</label>
-              <input type="text" class="form-control" id="notesFieldEdit" placeholder="Add Notes">
-            </div><br>
-          </fieldset>
-          <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-danger btn-delete" onclick="deleteEvent()" data-bs-dismiss="modal" style="margin-right: 198pt; margin-bottom: 2pt;">Delete Event</button>
-            <button type="button" class="btn btn-secondary" onclick="editEvent()" style="margin-right: 2pt; margin-bottom: 2pt;">Edit</button>
-            <button type="button" class="btn btn-primary btn-saveEdit" onclick="saveEvent()" data-bs-dismiss="modal" style="margin-right: 2pt; margin-bottom: 2pt;">Save</button>
+    <!-- Modal for Editing an Event -->
+    <div class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="ModalEditLabel">Edit Event</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-        </form>
+          <form>
+            <fieldset class="mb-3" id="personalInfoFieldsEdit" disabled>
+              <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" id="nameFieldEdit" placeholder="i.e. &quot;Assignment 1&quot;">
+              </div><br>
+
+              <div class="form-group">
+                <label>Select Class</label>
+                <select class="form-control" id="courseFieldEdit">
+                  <option>COMP 1110</option>
+                  <option>COMM 1116</option>
+                  <option>COMP 1510</option>
+                  <option>COMP 1712</option>
+                  <option>COMP 1800</option>
+                </select>
+                <br>
+              </div>
+              <div>
+                <label>Due Date: </label>
+                <input type="date" id="dueDateFieldEdit" name="date" />
+                <input type="time" id="dueHourFieldEdit">
+              </div>
+              <br><br>
+              <div class="form-group">
+                <label>Notes</label>
+                <input type="text" class="form-control" id="notesFieldEdit" placeholder="Add Notes">
+              </div><br>
+            </fieldset>
+            <div class="d-flex justify-content-end">
+              <button type="button" class="btn btn-danger btn-delete" onclick="deleteEvent()" data-bs-dismiss="modal" style="margin-right: 198pt; margin-bottom: 2pt;">Delete Event</button>
+              <button type="button" class="btn btn-secondary" onclick="editEvent()" style="margin-right: 2pt; margin-bottom: 2pt;">Edit</button>
+              <button type="button" class="btn btn-primary btn-saveEdit" onclick="saveEvent()" data-bs-dismiss="modal" style="margin-right: 2pt; margin-bottom: 2pt;">Save</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div>
-    <h2 class="category-text">
-      <a>Assigned</a>
-    </h2>
-  </div>
-  <br><br>
-
+    <div>
+      <h2 class="category-text">
+        <a>Assigned</a>
+      </h2>
+    </div>
+    <br><br>
 
 
-  <div class="container">
-    <!-- Here is container for cards  -->
+
     <div class="container">
-      <div id="verified-events" class="row row-cols-auto">
+      <!-- Here is container for cards  -->
+      <div class="container">
+        <div id="verified-events" class="row row-cols-auto">
 
+        </div>
       </div>
     </div>
-  </div>
 
 
-  <div>
-    <h2 class="category-text">
-      <a>Unverified</a>
-    </h2>
-  </div>
-  <br><br>
+    <div>
+      <h2 class="category-text">
+        <a>Unverified</a>
+      </h2>
+    </div>
+    <br><br>
 
 
-  <div class="container">
-    <!-- Here is container for cards  -->
     <div class="container">
-      <div id="unverified-events" class="row row-cols-auto">
+      <!-- Here is container for cards  -->
+      <div class="container">
+        <div id="unverified-events" class="row row-cols-auto">
+        </div>
       </div>
     </div>
-  </div>
 
 
-  <div>
-    <h2 class="category-text">
-      <a>Completed</a>
-    </h2>
-  </div>
-  <br><br>
+    <div>
+      <h2 class="category-text">
+        <a>Completed</a>
+      </h2>
+    </div>
+    <br><br>
 
-  <div class="container">
-    <!-- Here is container for cards  -->
     <div class="container">
-      <div id="complete-events" class="row row-cols-auto">
+      <!-- Here is container for cards  -->
+      <div class="container">
+        <div id="complete-events" class="row row-cols-auto">
 
+        </div>
       </div>
     </div>
-  </div>
-  <br><br><br>
+    <br><br><br>
 
-  <footer class="navbar fixed-bottom justify-content-evenly">
-    <a class="bottom-nav-button" href="index.html">
-      <i class="material-icons">home</i>
-      <span>Home</span>
-    </a>
-    <a class="bottom-nav-button" href="courses.html">
-      <i class="material-icons">class</i>
-      <span>Courses</span>
-    </a>
-  </footer>
+    <footer class="navbar fixed-bottom justify-content-evenly">
+      <a class="bottom-nav-button" href="index.html">
+        <i class="material-icons">home</i>
+        <span>Home</span>
+      </a>
+      <a class="bottom-nav-button" href="courses.html">
+        <i class="material-icons">class</i>
+        <span>Courses</span>
+      </a>
+    </footer>
 
-  <script src="./scripts/index.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-</body>
+    <script src="./scripts/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+  </body>
 
 </html>
