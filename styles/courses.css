@@ -24,7 +24,8 @@ header {
   right: 10pt;
 }
 .course-item {
-  width: 50em;
+  width: 65%;
+  height: 60px;
   margin: auto;
   margin-bottom: 15px;
   grid-column-start: 1;
@@ -35,6 +36,7 @@ header {
   grid-template-rows: auto;
   background-color: #735353;
   box-shadow: 0 0 8px rgb(48, 45, 45);
+  /* border: 2px solid black; */
 }
 
 .course-title {
@@ -51,6 +53,10 @@ header {
   grid-row: 1 / 2;
   background-color: red;
   color: white;
+}
+
+.btncourse{
+  height: 60px;
 }
 
 .join {
