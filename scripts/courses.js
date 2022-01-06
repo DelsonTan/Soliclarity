@@ -1,3 +1,9 @@
+firebase.auth().onAuthStateChanged(async (user) => {
+  if (!user) {
+    window.location.assign("login.html");
+  }
+});
+
 function generateCourseCode() {
   let code = "";
   const codeLength = 8;
@@ -31,7 +37,9 @@ function joinCourse() {
 
       if (!searchResults.empty) {
         // assume only one course has matching code and take the first search result
-        const currentCourse = db.collection("courses").doc(searchResults.docs[0].id);
+        const currentCourse = db
+          .collection("courses")
+          .doc(searchResults.docs[0].id);
 
         const courseDoc = await currentCourse.get();
 
@@ -120,49 +128,48 @@ function displayCourses() {
 displayCourses();
 
 function populateInfo() {
-
-  document.getElementById('createEditCourseModalLabel').innerHTML = 'Course Description';
+  document.getElementById("createEditCourseModalLabel").innerHTML =
+    "Course Description";
 
   var button = document.getElementById("create-course-button");
   button.remove();
 
-  document.getElementById('new-course-name').disabled = true;
-  document.getElementById('new-course-location').disabled = true;
-  document.getElementById('new-course-start-time').disabled = true;
-  document.getElementById('new-course-end-time').disabled = true;
-  document.getElementById('new-course-zoom-link').disabled = true;
+  document.getElementById("new-course-name").disabled = true;
+  document.getElementById("new-course-location").disabled = true;
+  document.getElementById("new-course-start-time").disabled = true;
+  document.getElementById("new-course-end-time").disabled = true;
+  document.getElementById("new-course-zoom-link").disabled = true;
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      currentUser = db.collection("courses").doc(user.uid); +
-        currentUser.get().then((userDoc) => {
+      currentUser = db.collection("courses").doc(user.uid);
+      +currentUser.get().then((userDoc) => {
+        var courseTitle = userDoc.data().name;
+        var code = userDoc.data().email;
+        var location = userDoc.data().location;
+        var startTime = userDoc.data().startTime;
+        var endTime = userDoc.data().endtime;
+        var zoomlink = userDoc.data().zoomlink;
 
-          var courseTitle = userDoc.data().name;
-          var code = userDoc.data().email;
-          var location = userDoc.data().location;
-          var startTime = userDoc.data().startTime;
-          var endTime = userDoc.data().endtime;
-          var zoomlink = userDoc.data().zoomlink;
-
-          if (courseTitle != null) {
-            document.getElementById("new-course-name").value = courseTitle;
-          }
-          if (code != null) {
-            document.getElementById("new-course-code").value = code;
-          }
-          if (location != null) {
-            document.getElementById("new-course-location").value = location;
-          }
-          if (startTime != null) {
-            document.getElementById("new-course-start-time").value = startTime;
-          }
-          if (endTime != null) {
-            document.getElementById("new-course-end-time").value = endTime;
-          }
-          if (zoomlink != null) {
-            document.getElementById("new-course-zoom-link").value = zoomlink;
-          }
-        });
+        if (courseTitle != null) {
+          document.getElementById("new-course-name").value = courseTitle;
+        }
+        if (code != null) {
+          document.getElementById("new-course-code").value = code;
+        }
+        if (location != null) {
+          document.getElementById("new-course-location").value = location;
+        }
+        if (startTime != null) {
+          document.getElementById("new-course-start-time").value = startTime;
+        }
+        if (endTime != null) {
+          document.getElementById("new-course-end-time").value = endTime;
+        }
+        if (zoomlink != null) {
+          document.getElementById("new-course-zoom-link").value = zoomlink;
+        }
+      });
     } else {
       // No user is signed in.
       console.log("No user is signed in");

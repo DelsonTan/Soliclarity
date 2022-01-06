@@ -1,3 +1,9 @@
+firebase.auth().onAuthStateChanged(async (user) => {
+  if (!user) {
+    window.location.assign("login.html");
+  }
+});
+
 function addEvent() {
   const courseFieldSelect = document.getElementById("courseField");
 
@@ -5,7 +11,8 @@ function addEvent() {
   const name = document.getElementById("nameField").value;
   const notes = document.getElementById("notesField").value;
   const course_id = courseFieldSelect.value;
-  const course_name = courseFieldSelect.options[courseFieldSelect.selectedIndex].text;
+  const course_name =
+    courseFieldSelect.options[courseFieldSelect.selectedIndex].text;
   const due_date = document.getElementById("dueDateField").value;
   const due_hour = document.getElementById("dueHourField").value;
 
@@ -25,21 +32,26 @@ function addEvent() {
         users: userDocs.docs.map((userDoc) => userDoc.id),
       });
 
-      
       userDocs.forEach(async (userDoc) => {
-        const currentUser = await db.collection("users").doc(userDoc.id)
+        const currentUser = await db.collection("users").doc(userDoc.id);
         if (userDoc.id !== user.uid) {
           currentUser.update({
-            events: [...userDoc.data().events, {
-              [eventRef.id]: "unverified"
-            }]
-          })
+            events: [
+              ...userDoc.data().events,
+              {
+                [eventRef.id]: "unverified",
+              },
+            ],
+          });
         } else {
           currentUser.update({
-            events: [...userDoc.data().events, {
-              [eventRef.id]: "verified"
-            }]
-          })
+            events: [
+              ...userDoc.data().events,
+              {
+                [eventRef.id]: "verified",
+              },
+            ],
+          });
         }
       });
       displayEvents();
@@ -51,7 +63,7 @@ function addEvent() {
 
 // Accepts a Date object and returns the string representation of the countdown timer.
 function getCountdown(date) {
-  if(!date) {
+  if (!date) {
     return "--d --h --m";
   }
   const now = Date.now();
@@ -60,9 +72,11 @@ function getCountdown(date) {
   if (timeDiff > 0) {
     // Time calculations for days, hours, minutes and seconds
     var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var hours = Math.floor(
+      (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
     var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-  
+
     return days + "d " + hours + "h " + minutes + "m ";
   } else {
     return "0d 0h 0m";
@@ -76,10 +90,10 @@ function displayEvents() {
   document.getElementById("complete-events").innerHTML = "";
 
   let CardTemplate = document.getElementById("CardTemplate");
-  
+
   firebase.auth().onAuthStateChanged(async (user) => {
     if (user) {
-      const userDoc = await db.collection("users").doc(user.uid).get()
+      const userDoc = await db.collection("users").doc(user.uid).get();
       const userEvents = userDoc.data().events;
 
       const verifiedEventQueries = [];
@@ -96,13 +110,13 @@ function displayEvents() {
         } else {
           completedEventQueries.push(query);
         }
-        return db.collection("events").doc(Object.keys(event)[0]).get()
+        return db.collection("events").doc(Object.keys(event)[0]).get();
       });
 
       const verifiedEventDocs = await Promise.all(verifiedEventQueries);
       const unverifiedEventDocs = await Promise.all(unverifiedEventQueries);
       const completeEventDocs = await Promise.all(completedEventQueries);
-      
+
       function displayEvent(doc, containerId) {
         const event = doc.data();
         var courseName = event.course_name || "No Course";
@@ -129,7 +143,6 @@ function displayEvents() {
       console.log("no user signed in");
     }
   });
-  
 }
 displayEvents();
 setInterval(displayEvents, 60000);
